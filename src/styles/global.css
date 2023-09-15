@@ -22,6 +22,11 @@
     --ls-sm: -0.5px;
 
     /* whitespace: 4 6 8 16 18 24 80 */
+    --header-height: 3.5rem;
+  }
+
+  li {
+    list-style: none;
   }
 
   html {
@@ -32,7 +37,8 @@
   #__next {
     --primary: var(--gray-100);
     --highlight: var(--red-900);
-    --background: var(--blue-900);
+    --background-intense: var(--blue-900);
+    --background-muted: var(--blue-700);
 
     min-height: 100vh;
 
@@ -41,6 +47,6 @@
     font-weight: var(--fw-normal);
 
     color: var(--primary);
-    background-color: var(--background);
+    background-color: var(--background-intense);
   }
 }

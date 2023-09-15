@@ -19,7 +19,10 @@ module.exports = {
     colors: {
       highlight: "var(--highlight)",
       primary: "var(--primary)",
-      background: "var(--background)",
+      background: {
+        intense: "var(--background-intense)",
+        muted: "var(--background-muted)",
+      },
       red: {
         900: "var(--red-900)",
       },
@@ -38,6 +41,17 @@ module.exports = {
     },
     letterSpacing: {
       tight: "-0.03125em", // -0.5px
+    },
+    backgroundImage: {
+      avatar: "url('/image-avatar.png')",
+    },
+    extend: {
+      minHeight: {
+        header: "var(--header-height)",
+      },
+      borderWidth: {
+        1: "1px",
+      },
     },
   },
   plugins: [],
