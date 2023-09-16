@@ -29,6 +29,10 @@
     list-style: none;
   }
 
+  input {
+    background: none;
+  }
+
   html {
     overflow-y: scroll;
     background-color: var(--clr);

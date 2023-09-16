@@ -13,7 +13,6 @@ export default function Header() {
   return (
     <div className="bg-background-muted px-4">
       <header className="flex min-h-header flex-wrap items-center justify-between">
-        <h1 className="sr-only">Discover your favourite movies.</h1>
         <Image
           src="/logo.svg"
           width={25}

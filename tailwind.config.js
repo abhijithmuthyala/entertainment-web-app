@@ -36,6 +36,7 @@ module.exports = {
       },
     },
     opacity: {
+      50: "0.5",
       75: "0.75",
       100: "1",
     },
@@ -44,6 +45,14 @@ module.exports = {
     },
     backgroundImage: {
       avatar: "url('/image-avatar.png')",
+      search: "url('/icon-search.svg')",
+    },
+    borderRadius: {
+      xs: "0.125rem", // 2px
+      sm: "0.25rem", // 4px
+      md: "0.375rem", // 6px
+      lg: "0.5rem", // 8px
+      full: "50%",
     },
     extend: {
       minHeight: {
