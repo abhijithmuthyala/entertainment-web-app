@@ -46,7 +46,7 @@ function NavLink({ href, name }) {
           width={16}
           height={16}
           src={`/icon-nav-${name}.svg`}
-          className={`${isCurrentPage ? "brightness-[100]" : ""}`}
+          className={`${isCurrentPage ? "brightness-[100]" : ""} aspect-square`}
         />
       </Link>
     </li>

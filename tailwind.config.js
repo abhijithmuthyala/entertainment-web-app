@@ -41,11 +41,8 @@ module.exports = {
       100: "1",
     },
     letterSpacing: {
-      tight: "-0.03125em", // -0.5px
-    },
-    backgroundImage: {
-      avatar: "url('/image-avatar.png')",
-      search: "url('/icon-search.svg')",
+      tight: "var(--ls-sm)", // -0.312px
+      tighter: "var(--ls-xs)", // -0.5px
     },
     borderRadius: {
       xs: "0.125rem", // 2px
@@ -55,6 +52,10 @@ module.exports = {
       full: "50%",
     },
     extend: {
+      backgroundImage: {
+        avatar: "url('/image-avatar.png')",
+        search: "url('/icon-search.svg')",
+      },
       minHeight: {
         header: "var(--header-height)",
       },

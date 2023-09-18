@@ -9,17 +9,20 @@
     --blue-700: #161d2f;
     --blue-900: #10141e;
     --gray-100: #ffffff;
+    --black: 0, 0, 0;
 
     --ff-outfit: "Outfit", sans-serif;
-    --fs-sm: 0.8125rem; /* 13px */
-    --fs-base: 0.9375rem; /* 15px */
+    --fs-sm: 0.75rem; /* 12px */
+    --fs-base: 1rem; /* 16px */
     --fs-md: 1.125rem; /* 18px */
-    --fs-lg: 1.5rem; /* 24px */
-    --fs-xl: 2rem; /* 32px */
+    --fs-lg: 1.25rem; /* 20px */
+    --fs-xl: 1.5rem; /* 24px */
+    --fs-2xl: 2rem; /* 32px */
 
     --fw-normal: 300;
     --fw-bold: 500;
-    --ls-sm: -0.5px;
+    --ls-xs: -0.5px;
+    --ls-sm: -0.312px;
 
     /* whitespace: 4 6 8 16 18 24 80 */
     --header-height: 3.5rem;
@@ -43,10 +46,12 @@
     --highlight: var(--red-900);
     --background-intense: var(--blue-900);
     --background-muted: var(--blue-700);
+    --overlay-intense: rgb(var(--black));
+    --overlay-muted: rgba(var(--black), 0.75);
 
     min-height: 100vh;
 
-    font: var(--ff-outfit);
+    font-family: var(--ff-outfit);
     font-size: var(--fs-base);
     font-weight: var(--fw-normal);
 
