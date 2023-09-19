@@ -51,7 +51,7 @@ export default function MediaLink({ data, overlayInfo = false }) {
           alt=""
           role="presentation"
           width={470}
-          height={140}
+          height={230}
           loading="lazy"
           className="aspect-[240/140] w-full rounded-lg object-cover brightness-75 transition-all duration-200 group-hover:scale-110"
         />
