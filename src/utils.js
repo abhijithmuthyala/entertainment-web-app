@@ -16,3 +16,7 @@ export function formatData(data) {
 
   return formattedData;
 }
+
+export function insertMediaTypeField(data, mediaType) {
+  data.forEach((mediaData) => (mediaData.media_type = mediaType));
+}

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,json}": [
+    "*.{js,ts,jsx}": [
       "prettier --write",
       "eslint --fix"
     ]
