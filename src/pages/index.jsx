@@ -3,7 +3,9 @@ import Head from "next/head";
 import MediaLinksList from "@/components/media/MediaLinksList";
 import MediaSection from "@/components/media/MediaSection";
 
+import MediaSectionGrid from "@/components/media/MediaSectionGrid";
 import { API, HORIZONTAL_SCROLL_UNITS, fetchData } from "@/constants";
+import { insertMediaTypeField } from "@/utils";
 
 export default function Home({
   trendingData,
@@ -35,24 +37,16 @@ export default function Home({
             />
           </MediaSection>
         </div>
-        <div className="px-4 py-3">
-          <MediaSection heading="popular" tag="movies">
-            <MediaLinksList
-              horizontallyScrollable={false}
-              overlayInfo={false}
-              data={popularMoviesData}
-            />
-          </MediaSection>
-        </div>
-        <div className="px-4 py-6">
-          <MediaSection heading="popular" tag="tv-series">
-            <MediaLinksList
-              horizontallyScrollable={false}
-              overlayInfo={false}
-              data={popularSeriesData}
-            />
-          </MediaSection>
-        </div>
+        <MediaSectionGrid
+          heading="popular"
+          tag="movies"
+          data={popularMoviesData}
+        />
+        <MediaSectionGrid
+          heading="popular"
+          tag="tv-series"
+          data={popularSeriesData}
+        />
       </main>
     </>
   );
@@ -86,8 +80,4 @@ export async function getServerSideProps(ctx) {
   } catch (error) {
     console.error(error.message);
   }
-}
-
-function insertMediaTypeField(data, mediaType) {
-  data.forEach((mediaData) => (mediaData.media_type = mediaType));
 }
