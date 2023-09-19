@@ -69,6 +69,12 @@ const config = {
         "scroll-mobile": `repeat(${HORIZONTAL_SCROLL_UNITS},15rem)`,
         "scroll-desktop": `repeat(${HORIZONTAL_SCROLL_UNITS},29.375rem)`,
       },
+      aspectRatio: {
+        "media-overlay-mobile": "240/140",
+        "media-overlay-desktop": "470/230",
+        "media-mobile": "164/110",
+        "media-desktop": "280/174",
+      },
     },
   },
   plugins: [],

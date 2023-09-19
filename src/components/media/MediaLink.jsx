@@ -53,7 +53,10 @@ export default function MediaLink({ data, overlayInfo = false }) {
           width={470}
           height={230}
           loading="lazy"
-          className="aspect-[240/140] w-full rounded-lg object-cover brightness-75 transition-all duration-200 group-hover:scale-110"
+          className={`aspect-media-mobile w-full rounded-lg object-cover brightness-75 transition-all duration-200 group-hover:scale-110 md:aspect-media-desktop ${
+            overlayInfo &&
+            "aspect-media-overlay-mobile md:aspect-media-overlay-desktop"
+          }`}
         />
       </Link>
     </li>
