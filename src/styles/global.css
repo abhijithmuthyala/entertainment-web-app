@@ -12,6 +12,7 @@
     --black: 0, 0, 0;
 
     --ff-outfit: "Outfit", sans-serif;
+    --fs-xs: 0.625rem; /* 10px */
     --fs-sm: 0.75rem; /* 12px */
     --fs-base: 1rem; /* 16px */
     --fs-md: 1.125rem; /* 18px */

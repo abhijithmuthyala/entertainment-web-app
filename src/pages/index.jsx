@@ -3,10 +3,15 @@ import Head from "next/head";
 import MediaLinksList from "@/components/media/MediaLinksList";
 import MediaSection from "@/components/media/MediaSection";
 
-import { API, fetchData } from "@/constants";
-import { formatData } from "@/utils";
+import { API, HORIZONTAL_SCROLL_UNITS, fetchData } from "@/constants";
 
-export default function Home({ trendingData }) {
+export default function Home({
+  trendingData,
+  popularMoviesData,
+  popularSeriesData,
+}) {
+  const trendingDataSlice = trendingData.slice(0, HORIZONTAL_SCROLL_UNITS);
+
   return (
     <>
       <Head>
@@ -21,12 +26,30 @@ export default function Home({ trendingData }) {
           Discover movies, tv-series and your favourite actors using the most
           trusted TMDB API
         </h1>
-        <div className="px-4">
-          <MediaSection heading="trending">
+        <div className="px-4 py-3">
+          <MediaSection heading="trending" tag="all">
             <MediaLinksList
               horizontallyScrollable
               overlayInfo
-              data={trendingData}
+              data={trendingDataSlice}
+            />
+          </MediaSection>
+        </div>
+        <div className="px-4 py-3">
+          <MediaSection heading="popular" tag="movies">
+            <MediaLinksList
+              horizontallyScrollable={false}
+              overlayInfo={false}
+              data={popularMoviesData}
+            />
+          </MediaSection>
+        </div>
+        <div className="px-4 py-6">
+          <MediaSection heading="popular" tag="tv-series">
+            <MediaLinksList
+              horizontallyScrollable={false}
+              overlayInfo={false}
+              data={popularSeriesData}
             />
           </MediaSection>
         </div>
@@ -37,17 +60,34 @@ export default function Home({ trendingData }) {
 
 export async function getServerSideProps(ctx) {
   try {
-    const data = await fetchData(API.trending);
-    if (data.success === false) throw new Error(data.status_message);
+    const [trending, popularMovies, popularSeries] = await Promise.all([
+      fetchData(API.trending),
+      fetchData(API.popular.movies),
+      fetchData(API.popular.tv),
+    ]);
+    if (
+      trending.success === false ||
+      popularMovies.success === false ||
+      popularSeries.success === false
+    ) {
+      throw new Error("Failed to fetch data");
+    }
 
-    const trendingData = data.results.slice(0, 5);
-    console.log(formatData(trendingData[0]));
+    insertMediaTypeField(popularMovies.results, "movie");
+    insertMediaTypeField(popularSeries.results, "tv");
+
     return {
       props: {
-        trendingData,
+        trendingData: trending.results,
+        popularMoviesData: popularMovies.results,
+        popularSeriesData: popularSeries.results,
       },
     };
   } catch (error) {
     console.error(error.message);
   }
+}
+
+function insertMediaTypeField(data, mediaType) {
+  data.forEach((mediaData) => (mediaData.media_type = mediaType));
 }

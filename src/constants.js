@@ -1,17 +1,21 @@
+const tmdbBaseUrl = "https://api.themoviedb.org/3";
+const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/original";
+const keyQueryParam = `api_key=${process.env.KEY}`;
+
 export const API = {
-  base: "https://api.themoviedb.org/3",
-  keyQueryParam: `api_key=${process.env.KEY}`,
   search(query) {
-    return `${this.base}/search/multi?query=${query}&${this.keyQueryParam}`;
+    return `${tmdbBaseUrl}/search/multi?query=${query}&${keyQueryParam}`;
   },
   details(id) {
-    return `${this.base}/movie/${id}?${this.keyQueryParam}`;
+    return `${tmdbBaseUrl}/movie/${id}?${keyQueryParam}`;
   },
-  get trending() {
-    return `${this.base}/trending/movie/day?language=en-US&${this.keyQueryParam}&append_to_response=images`;
-  },
+  trending: `${tmdbBaseUrl}/trending/all/day?language=en-US&${keyQueryParam}&append_to_response=images`,
   image(path) {
-    return `https://image.tmdb.org/t/p/original${path}`;
+    return `${tmdbImageBaseUrl}${path}`;
+  },
+  popular: {
+    movies: `${tmdbBaseUrl}/movie/popular?${keyQueryParam}&language=en-US&page=1&append_to_response=images`,
+    tv: `${tmdbBaseUrl}/tv/popular?${keyQueryParam}&language=en-US&page=1&append_to_response=images`,
   },
 };
 
@@ -21,7 +25,7 @@ export async function fetchData(url) {
   return data;
 }
 
-export const HORIZONTAL_SCROLL_UNITS = 5;
+export const HORIZONTAL_SCROLL_UNITS = 10;
 
 export const SEARCH_LABELS = {
   "/": "Search for movies or TV series",

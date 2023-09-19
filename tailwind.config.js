@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import { HORIZONTAL_SCROLL_UNITS } from "./src/constants";
+
+const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     fontFamily: {
@@ -10,6 +11,7 @@ module.exports = {
       bold: 500,
     },
     fontSize: {
+      xs: "var(--fs-xs)",
       sm: "var(--fs-sm)",
       base: "var(--fs-base)",
       md: "var(--fs-md)",
@@ -41,6 +43,7 @@ module.exports = {
       100: "1",
     },
     letterSpacing: {
+      normal: "normal",
       tight: "var(--ls-sm)", // -0.312px
       tighter: "var(--ls-xs)", // -0.5px
     },
@@ -62,7 +65,19 @@ module.exports = {
       borderWidth: {
         1: "1px",
       },
+      gridTemplateColumns: {
+        "scroll-mobile": `repeat(${HORIZONTAL_SCROLL_UNITS},15rem)`,
+        "scroll-desktop": `repeat(${HORIZONTAL_SCROLL_UNITS},29.375rem)`,
+      },
+      aspectRatio: {
+        "media-overlay-mobile": "240/140",
+        "media-overlay-desktop": "470/230",
+        "media-mobile": "164/110",
+        "media-desktop": "280/174",
+      },
     },
   },
   plugins: [],
 };
+
+export default config;
