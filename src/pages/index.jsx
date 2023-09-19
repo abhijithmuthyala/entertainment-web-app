@@ -40,12 +40,12 @@ export default function Home({
         <MediaSectionGrid
           heading="popular"
           tag="movies"
-          data={popularMoviesData}
+          mediaData={popularMoviesData}
         />
         <MediaSectionGrid
           heading="popular"
           tag="tv-series"
-          data={popularSeriesData}
+          mediaData={popularSeriesData}
         />
       </main>
     </>
