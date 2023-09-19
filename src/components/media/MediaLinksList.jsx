@@ -1,7 +1,5 @@
 import MediaLink from "./MediaLink";
 
-import { HORIZONTAL_SCROLL_UNITS } from "@/constants";
-
 export default function MediaLinksList({
   horizontallyScrollable = false,
   overlayInfo = false,
@@ -23,17 +21,16 @@ export default function MediaLinksList({
 }
 
 export function CardsGridWrapper({ children }) {
-  return <ol>{children}</ol>;
+  return (
+    <ol className="grid grid-cols-[repeat(auto-fit,minmax(10.25rem,1fr))] justify-around gap-x-4 gap-y-8 md:grid-cols-[repeat(auto-fit,minmax(17.5rem,1fr))]">
+      {children}
+    </ol>
+  );
 }
 
 function CardsScrollWrapper({ children }) {
   return (
-    <ol
-      className={`grid gap-x-4 overflow-x-auto`}
-      style={{
-        gridTemplateColumns: `repeat(${HORIZONTAL_SCROLL_UNITS},15rem)`,
-      }}
-    >
+    <ol className="grid grid-cols-scroll-mobile gap-x-4 overflow-x-auto md:grid-cols-scroll-desktop">
       {children}
     </ol>
   );
