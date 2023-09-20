@@ -1,10 +1,13 @@
+import { titleCase } from "@/utils";
+
 export default function MediaSection({ heading, tag = null, children }) {
+  console.log("MediaSection", heading);
   return (
     <section className="">
       <h2 className="mb-4 flex items-center gap-x-4 text-lg tracking-tight">
-        {heading.replace(heading[0], heading[0].toUpperCase())}
+        {titleCase(heading)}
         {tag && (
-          <span className="text-xs rounded-md border-1 border-highlight p-1 -tracking-tighter opacity-75">
+          <span className="rounded-md border-1 border-highlight p-1 text-xs -tracking-tighter opacity-75">
             {tag.toUpperCase()}
           </span>
         )}

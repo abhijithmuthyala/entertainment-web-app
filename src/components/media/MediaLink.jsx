@@ -1,8 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { useContext } from "react";
+
+import { BookmarksContext } from "@/context/bookmarks";
+
 import { API } from "@/constants";
-import { formatData } from "@/utils";
+import { titleCase } from "@/utils";
 
 const mediaIconNames = {
   movie: "movies",
@@ -15,9 +19,20 @@ export default function MediaLink({ data, overlayInfo = false }) {
     formattedData.releaseDate || formattedData.firstAirDate,
   ).getFullYear();
 
+  const { bookmarksData, toggleBookmark } = useContext(BookmarksContext);
+  const isBookmarked = bookmarksData.find(
+    (bookmark) =>
+      bookmark.id === formattedData.id &&
+      bookmark.mediaType === formattedData.mediaType,
+  );
+
   const overlayedClasses = overlayInfo
     ? "absolute z-10 block w-full p-4 bottom-0"
     : "";
+
+  function handleBookmark() {
+    toggleBookmark(formattedData);
+  }
 
   return (
     <li className="group relative overflow-hidden  transition-all">
@@ -39,10 +54,7 @@ export default function MediaLink({ data, overlayInfo = false }) {
                 height={12}
                 className="inline-block aspect-square w-3 object-cover object-center align-middle brightness-[100]"
               />
-              {formattedData.mediaType.replace(
-                formattedData.mediaType[0],
-                formattedData.mediaType[0].toUpperCase(),
-              )}
+              {titleCase(formattedData.mediaType)}
             </p>
           </div>
         </div>
@@ -59,6 +71,43 @@ export default function MediaLink({ data, overlayInfo = false }) {
           }`}
         />
       </Link>
+      <button
+        aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
+        onClick={handleBookmark}
+        className={`absolute right-2 top-2 ${
+          isBookmarked ? "bg-bookmark-full" : "bg-bookmark-empty"
+        } aspect-square w-8 bg-contain bg-no-repeat`}
+      ></button>
     </li>
   );
+}
+
+function formatData(data) {
+  const formattedData = {};
+  const requiredFields = new Set([
+    "releaseDate",
+    "firstAirDate",
+    "id",
+    "mediaType",
+    "title",
+    "name",
+    "backdropPath",
+  ]);
+
+  for (const key in data) {
+    const formattedKey = key
+      .split("_")
+      .map((word, index) => {
+        if (index === 0) {
+          return word.replace(word[0], word[0].toLowerCase());
+        }
+        return word.replace(word[0], word[0].toUpperCase());
+      })
+      .join("");
+    if (requiredFields.has(formattedKey)) {
+      formattedData[formattedKey] = data[key];
+    }
+  }
+
+  return formattedData;
 }
