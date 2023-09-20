@@ -17,7 +17,7 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>Entertainment Web App | Home</title>
+        <title>Home | Entertainment Web App</title>
         <meta
           name="description"
           content="Discover a wide range of movies and TV series across the genres. Search for your favourite movie or actor. Bookmark your favourite stuff."
