@@ -11,6 +11,13 @@
     --gray-100: #ffffff;
     --black: 0, 0, 0;
 
+    --primary: var(--gray-100);
+    --highlight: var(--red-900);
+    --background-intense: var(--blue-900);
+    --background-muted: var(--blue-700);
+    --overlay-intense: rgb(var(--black));
+    --overlay-muted: rgba(var(--black), 0.75);
+
     --ff-outfit: "Outfit", sans-serif;
     --fs-xs: 0.625rem; /* 10px */
     --fs-sm: 0.75rem; /* 12px */
@@ -39,17 +46,36 @@
 
   html {
     overflow-y: scroll;
-    background-color: var(--clr);
+    background-color: var(--background-intense);
+  }
+
+  /* custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 0.75vw;
+    height: 0.5vw;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--blue-300);
+    border-radius: 0.5rem;
+    margin-block: 0.25rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--red-900);
+    border-radius: 0.5rem;
+  }
+
+  html {
+    scrollbar-width: 0.75vw;
+    scrollbar-color: var(--highlight) var(--blue-300);
   }
 
   #__next {
-    --primary: var(--gray-100);
-    --highlight: var(--red-900);
-    --background-intense: var(--blue-900);
-    --background-muted: var(--blue-700);
-    --overlay-intense: rgb(var(--black));
-    --overlay-muted: rgba(var(--black), 0.75);
-
     min-height: 100vh;
 
     font-family: var(--ff-outfit);
