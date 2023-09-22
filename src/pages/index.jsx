@@ -11,6 +11,7 @@ export default function Home({
   trendingData,
   popularMoviesData,
   popularSeriesData,
+  form,
 }) {
   const trendingDataSlice = trendingData.slice(0, HORIZONTAL_SCROLL_UNITS);
 
@@ -28,6 +29,7 @@ export default function Home({
           Discover movies, tv-series and your favourite actors using the most
           trusted TMDB API
         </h1>
+        {form}
         <div className="px-4 py-3">
           <MediaSection heading="trending" tag="all">
             <MediaLinksList

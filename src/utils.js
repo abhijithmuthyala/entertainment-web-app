@@ -9,7 +9,6 @@ export function toggleKey(set, key) {
 }
 
 export function titleCase(sentence) {
-  console.log(sentence);
   return sentence
     .split(" ")
     .map((word) => word[0].toUpperCase() + word.slice(1))
