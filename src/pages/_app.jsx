@@ -7,12 +7,11 @@ import "@/styles/global.css";
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
+    <div className="">
       <Header />
-      <SearchForm />
       <BookmarksProvider>
-        <Component {...pageProps} />
+        <Component {...pageProps} form={<SearchForm />} />
       </BookmarksProvider>
-    </>
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import MediaSectionGrid from "@/components/media/MediaSectionGrid";
 import { API, fetchData } from "@/constants";
 import { insertMediaTypeField } from "@/utils";
 
-export default function MoviesPage({ moviesData }) {
+export default function MoviesPage({ moviesData, form }) {
   return (
     <>
       <Head>
@@ -18,6 +18,7 @@ export default function MoviesPage({ moviesData }) {
         <h1 className="sr-only">
           Explore a wide collection of movies across genres
         </h1>
+        {form}
         <MediaSectionGrid heading="movies" mediaData={moviesData} />
       </main>
     </>
