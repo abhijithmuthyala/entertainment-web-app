@@ -30,7 +30,7 @@ export default function Home({
           trusted TMDB API
         </h1>
         {form}
-        <div className="px-4 py-3">
+        <div className="pb-3 max-lg:px-4">
           <MediaSection heading="trending" tag="all">
             <MediaLinksList
               horizontallyScrollable

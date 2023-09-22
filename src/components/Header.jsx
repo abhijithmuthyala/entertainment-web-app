@@ -11,22 +11,22 @@ const navIcons = [
 
 export default function Header() {
   return (
-    <div className="bg-background-muted px-4">
-      <header className="flex min-h-header flex-wrap items-center justify-between">
+    <div className="bg-background-muted px-4 lg:h-[min(60rem,calc(100vh-4rem))] lg:max-w-[6rem] lg:rounded-3xl lg:p-8">
+      <header className="flex min-h-header flex-wrap items-center justify-between lg:h-full lg:flex-col lg:gap-y-20">
         <Image
           src="/logo.svg"
           width={25}
           height={20}
           alt="Entertainment web app logo - A rectangle filled in red, with three small black lines at the top running in the down-right direction."
         />
-        <nav className="mx-auto flex items-center gap-x-6">
+        <nav className="mx-auto flex items-center gap-x-6 gap-y-10 lg:flex-col">
           {navIcons.map(function renderNavLink({ href, name }) {
             return <NavLink href={href} name={name} key={name} />;
           })}
         </nav>
         <button
           aria-label="Profile"
-          className="aspect-square w-6 rounded-full border-1 border-solid border-primary bg-avatar bg-contain bg-center bg-no-repeat"
+          className="aspect-square w-6 rounded-full border-1 border-solid border-primary bg-avatar bg-contain bg-center bg-no-repeat lg:mt-auto"
         ></button>
       </header>
     </div>
