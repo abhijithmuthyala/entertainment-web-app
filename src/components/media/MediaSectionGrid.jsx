@@ -3,7 +3,7 @@ import MediaSection from "./MediaSection";
 
 export default function MediaSectionGrid({ heading, tag = null, mediaData }) {
   return (
-    <div className="px-4 py-6">
+    <div className="py-2 max-lg:px-4">
       <MediaSection heading={heading} tag={tag}>
         <MediaLinksList
           horizontallyScrollable={false}

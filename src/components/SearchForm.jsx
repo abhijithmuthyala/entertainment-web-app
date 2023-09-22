@@ -18,11 +18,11 @@ export default function SearchForm() {
   }
 
   return (
-    <div className="px-2 py-3">
+    <div className="py-3 max-lg:px-2">
       <form
         action="/"
         onSubmit={handleSubmit}
-        className="rounded-md bg-background-muted px-2 py-3 focus-within:outline focus-within:outline-1 focus-within:outline-highlight"
+        className="rounded-md bg-background-muted px-2 py-3 focus-within:outline focus-within:outline-1 focus-within:outline-highlight lg:px-4"
       >
         <label htmlFor="search" className="sr-only">
           {label}

@@ -52,6 +52,7 @@ const config = {
       sm: "0.25rem", // 4px
       md: "0.375rem", // 6px
       lg: "0.5rem", // 8px
+      "3xl": "1.5rem", // 20px
       full: "50%",
     },
     extend: {
