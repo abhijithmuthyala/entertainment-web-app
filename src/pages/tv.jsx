@@ -1,11 +1,12 @@
 import Head from "next/head";
 
 import MediaSectionGrid from "@/components/media/MediaSectionGrid";
+import SearchForm from "@/components/SearchForm";
 
-import { API, fetchData } from "@/constants";
-import { insertMediaTypeField } from "@/utils";
+import { API } from "@/constants";
+import { insertMediaTypeField, fetchData } from "@/utils";
 
-export default function SeriesPage({ seriesData, form }) {
+export default function SeriesPage({ seriesData }) {
   return (
     <>
       <Head>
@@ -19,7 +20,7 @@ export default function SeriesPage({ seriesData, form }) {
         <h1 className="sr-only">
           Explore a wide collection of tv-series across genres
         </h1>
-        {form}
+        <SearchForm />
         <MediaSectionGrid heading="movies" mediaData={seriesData} />
       </main>
     </>

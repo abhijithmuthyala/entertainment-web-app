@@ -1,19 +1,27 @@
 import Head from "next/head";
 
+import { useState } from "react";
+
+import SearchForm from "@/components/SearchForm";
+import SearchResults from "@/components/SearchResults";
 import MediaLinksList from "@/components/media/MediaLinksList";
 import MediaSection from "@/components/media/MediaSection";
-
 import MediaSectionGrid from "@/components/media/MediaSectionGrid";
-import { API, HORIZONTAL_SCROLL_UNITS, fetchData } from "@/constants";
-import { insertMediaTypeField } from "@/utils";
+
+import { API, HORIZONTAL_SCROLL_UNITS } from "@/constants";
+import { fetchData, insertMediaTypeField } from "@/utils";
 
 export default function Home({
   trendingData,
   popularMoviesData,
   popularSeriesData,
-  form,
 }) {
+  const [searchResults, setSearchResults] = useState(null);
   const trendingDataSlice = trendingData.slice(0, HORIZONTAL_SCROLL_UNITS);
+
+  function onFetchSearchResults(searchResults) {
+    setSearchResults(searchResults);
+  }
 
   return (
     <>
@@ -29,26 +37,31 @@ export default function Home({
           Discover movies, tv-series and your favourite actors using the most
           trusted TMDB API
         </h1>
-        {form}
-        <div className="pb-3 max-lg:px-4">
-          <MediaSection heading="trending" tag="all">
-            <MediaLinksList
-              horizontallyScrollable
-              overlayInfo
-              data={trendingDataSlice}
+        <SearchForm onFetchSearchResults={onFetchSearchResults} />
+        {searchResults && <SearchResults data={searchResults} />}
+        {!searchResults && (
+          <>
+            <div className="pb-3 max-lg:px-4">
+              <MediaSection heading="trending" tag="all">
+                <MediaLinksList
+                  horizontallyScrollable
+                  overlayInfo
+                  data={trendingDataSlice}
+                />
+              </MediaSection>
+            </div>
+            <MediaSectionGrid
+              heading="popular"
+              tag="movies"
+              mediaData={popularMoviesData}
             />
-          </MediaSection>
-        </div>
-        <MediaSectionGrid
-          heading="popular"
-          tag="movies"
-          mediaData={popularMoviesData}
-        />
-        <MediaSectionGrid
-          heading="popular"
-          tag="tv-series"
-          mediaData={popularSeriesData}
-        />
+            <MediaSectionGrid
+              heading="popular"
+              tag="tv-series"
+              mediaData={popularSeriesData}
+            />
+          </>
+        )}
       </main>
     </>
   );

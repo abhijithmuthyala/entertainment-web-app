@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 const navIcons = [
   { href: "/", name: "home" },
   { href: "/movies", name: "movies" },
-  { href: "/tv-series", name: "tv-series" },
+  { href: "/tv", name: "tv-series" },
   { href: "/bookmarks", name: "bookmarks" },
 ];
 
