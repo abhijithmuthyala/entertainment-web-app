@@ -3,6 +3,8 @@ import { useContext } from "react";
 
 import MediaSectionGrid from "@/components/media/MediaSectionGrid";
 
+import FeedbackMessage from "@/components/FeedbackMessage";
+import SearchForm from "@/components/SearchForm";
 import { BookmarksContext } from "@/context/bookmarks";
 
 export default function BookmarksPage() {
@@ -29,10 +31,9 @@ export default function BookmarksPage() {
       </Head>
       <main>
         <h1 className="sr-only">Your bookmarks</h1>
+        <SearchForm />
         {bookmarkedMovies.length === 0 && bookmarkedSeries.length === 0 && (
-          <p className="p-4 text-base font-bold opacity-75">
-            No bookmarks found.
-          </p>
+          <FeedbackMessage message="No bookmarks found." />
         )}
         {bookmarkedMovies.length > 0 && (
           <MediaSectionGrid

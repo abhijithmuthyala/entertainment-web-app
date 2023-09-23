@@ -1,20 +1,45 @@
 import { useRouter } from "next/router";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-import { SEARCH_LABELS } from "@/constants";
+import { BookmarksContext } from "@/context/bookmarks";
 
-export default function SearchForm() {
-  const router = useRouter();
+import { fetchData } from "@/utils";
+
+const searchLabels = {
+  "/": "Search for movies or TV series",
+  "/movies": "Search for movies",
+  "/tv": "Search for TV series",
+  "/bookmarks": "Search for bookmarked shows",
+};
+
+export default function SearchForm({ onFetchSearchResults }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const label = SEARCH_LABELS[router.pathname];
+  const { bookmarksData } = useContext(BookmarksContext);
+  const router = useRouter();
+  const label = searchLabels[router.pathname];
 
   function handleSubmit(event) {
     event.preventDefault();
   }
 
-  function handleChange(event) {
-    setSearchQuery(event.target.value);
+  async function handleChange(event) {
+    const query = event.target.value.trim().toLowerCase();
+    setSearchQuery(query);
+
+    if (query === "") return onFetchSearchResults(null);
+
+    if (router.pathname === "/bookmarks") {
+      const searchResults = bookmarksData.filter((bookmark) => {
+        return bookmark.title.toLowerCase().includes(query.toLowerCase());
+      });
+      onFetchSearchResults(searchResults);
+    } else {
+      const searchResults = await fetchData(
+        `/api/search?query=${query}&media-type=${router.pathname.slice(1)}`,
+      );
+      onFetchSearchResults(searchResults);
+    }
   }
 
   return (

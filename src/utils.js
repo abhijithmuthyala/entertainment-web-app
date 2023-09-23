@@ -14,3 +14,9 @@ export function titleCase(sentence) {
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+export async function fetchData(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
