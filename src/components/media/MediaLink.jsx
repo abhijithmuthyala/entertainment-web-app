@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { BookmarksContext } from "@/context/bookmarks";
 import { SearchContext } from "@/context/search";
@@ -17,6 +17,8 @@ const mediaIconNames = {
 
 export default function MediaLink({ data, overlayInfo = false }) {
   const router = useRouter();
+  const [showSkeleton, setShowSkeleton] = useState(true);
+
   const formattedData = formatData(data);
   const releaseYear = new Date(
     formattedData.releaseDate || formattedData.firstAirDate,
@@ -40,8 +42,12 @@ export default function MediaLink({ data, overlayInfo = false }) {
     }
   }
 
+  function removeSkeleton() {
+    setShowSkeleton(false);
+  }
+
   return (
-    <li className="group relative overflow-hidden  transition-all">
+    <li className="group relative overflow-hidden rounded-lg transition-all hover:scale-105 hover:bg-background-muted">
       <Link href={"/"} className="flex flex-col-reverse gap-y-2">
         <div
           className={"flex flex-col-reverse gap-y-1" + " " + overlayedClasses}
@@ -64,18 +70,23 @@ export default function MediaLink({ data, overlayInfo = false }) {
             </p>
           </div>
         </div>
-        <Image
-          src={API.image(formattedData.backdropPath)}
-          alt=""
-          role="presentation"
-          width={470}
-          height={230}
-          loading="lazy"
-          className={`aspect-media-mobile w-full rounded-lg object-cover brightness-75 transition-all duration-200 group-hover:scale-110 md:aspect-media-desktop ${
+        <div
+          className={`aspect-media-mobile w-full overflow-hidden rounded-lg md:aspect-media-desktop ${
             overlayInfo &&
             "aspect-media-overlay-mobile md:aspect-media-overlay-desktop"
-          }`}
-        />
+          } ${showSkeleton && "skeleton"}`}
+        >
+          <Image
+            src={API.image(formattedData.backdropPath)}
+            alt=""
+            role="presentation"
+            width={470}
+            height={230}
+            loading="lazy"
+            onLoad={removeSkeleton}
+            className={`h-full object-cover brightness-75 transition-all duration-200 group-hover:scale-125  `}
+          />
+        </div>
       </Link>
       <button
         aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
