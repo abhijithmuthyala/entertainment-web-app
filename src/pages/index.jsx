@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import { useState } from "react";
+import { useContext } from "react";
 
 import SearchForm from "@/components/SearchForm";
 import SearchResults from "@/components/SearchResults";
@@ -9,6 +9,7 @@ import MediaSection from "@/components/media/MediaSection";
 import MediaSectionGrid from "@/components/media/MediaSectionGrid";
 
 import { API, HORIZONTAL_SCROLL_UNITS } from "@/constants";
+import { SearchContext } from "@/context/search";
 import { fetchData, insertMediaTypeField } from "@/utils";
 
 export default function Home({
@@ -16,12 +17,8 @@ export default function Home({
   popularMoviesData,
   popularSeriesData,
 }) {
-  const [searchResults, setSearchResults] = useState(null);
+  const { searchResults } = useContext(SearchContext);
   const trendingDataSlice = trendingData.slice(0, HORIZONTAL_SCROLL_UNITS);
-
-  function onFetchSearchResults(searchResults) {
-    setSearchResults(searchResults);
-  }
 
   return (
     <>
@@ -37,7 +34,7 @@ export default function Home({
           Discover movies, tv-series and your favourite actors using the most
           trusted TMDB API
         </h1>
-        <SearchForm onFetchSearchResults={onFetchSearchResults} />
+        <SearchForm />
         {searchResults && <SearchResults data={searchResults} />}
         {!searchResults && (
           <>

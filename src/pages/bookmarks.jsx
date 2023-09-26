@@ -1,14 +1,19 @@
 import Head from "next/head";
-import { useContext } from "react";
+import { useRouter } from "next/router";
 
-import MediaSectionGrid from "@/components/media/MediaSectionGrid";
+import { useContext } from "react";
 
 import FeedbackMessage from "@/components/FeedbackMessage";
 import SearchForm from "@/components/SearchForm";
+import SearchResults from "@/components/SearchResults";
+import MediaSectionGrid from "@/components/media/MediaSectionGrid";
+
 import { BookmarksContext } from "@/context/bookmarks";
 
 export default function BookmarksPage() {
+  const router = useRouter();
   const { bookmarksData } = useContext(BookmarksContext);
+
   const bookmarkedMovies = [];
   const bookmarkedSeries = [];
 
@@ -19,6 +24,36 @@ export default function BookmarksPage() {
       bookmarkedSeries.push(bookmark);
     }
   });
+
+  const searchQuery = router.query.search;
+  const searchResults =
+    searchQuery &&
+    bookmarksData.filter((bookmark) => {
+      const title = bookmark.title || bookmark.name;
+      return title.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+  router.query, searchQuery, searchResults;
+
+  const searchContent = <SearchResults data={searchResults} />;
+  const bookmarksContent = (
+    <>
+      {bookmarkedMovies.length === 0 && bookmarkedSeries.length === 0 && (
+        <FeedbackMessage message="No bookmarks found." />
+      )}
+      {bookmarkedMovies.length > 0 && (
+        <MediaSectionGrid
+          heading="bookmarked movies"
+          mediaData={bookmarkedMovies}
+        />
+      )}
+      {bookmarkedSeries.length > 0 && (
+        <MediaSectionGrid
+          heading="bookmarked series"
+          mediaData={bookmarkedSeries}
+        />
+      )}
+    </>
+  );
 
   return (
     <>
@@ -32,21 +67,7 @@ export default function BookmarksPage() {
       <main>
         <h1 className="sr-only">Your bookmarks</h1>
         <SearchForm />
-        {bookmarkedMovies.length === 0 && bookmarkedSeries.length === 0 && (
-          <FeedbackMessage message="No bookmarks found." />
-        )}
-        {bookmarkedMovies.length > 0 && (
-          <MediaSectionGrid
-            heading="bookmarked movies"
-            mediaData={bookmarkedMovies}
-          />
-        )}
-        {bookmarkedSeries.length > 0 && (
-          <MediaSectionGrid
-            heading="bookmarked series"
-            mediaData={bookmarkedSeries}
-          />
-        )}
+        {searchQuery ? searchContent : bookmarksContent}
       </main>
     </>
   );

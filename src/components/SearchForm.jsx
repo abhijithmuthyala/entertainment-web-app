@@ -3,20 +3,23 @@ import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 
 import { BookmarksContext } from "@/context/bookmarks";
+import { SearchContext } from "@/context/search";
 
 import { fetchData } from "@/utils";
 
 const searchLabels = {
   "/": "Search for movies or TV series",
-  "/movies": "Search for movies",
+  "/movie": "Search for movies",
   "/tv": "Search for TV series",
   "/bookmarks": "Search for bookmarked shows",
 };
 
-export default function SearchForm({ onFetchSearchResults }) {
+export default function SearchForm() {
+  const { onFetchSearchResults } = useContext(SearchContext);
   const [searchQuery, setSearchQuery] = useState("");
   const { bookmarksData } = useContext(BookmarksContext);
   const router = useRouter();
+
   const label = searchLabels[router.pathname];
 
   function handleSubmit(event) {
@@ -24,20 +27,35 @@ export default function SearchForm({ onFetchSearchResults }) {
   }
 
   async function handleChange(event) {
-    const query = event.target.value.trim().toLowerCase();
+    const query = event.target.value;
+    const normalizedQuery = query.trim().toLowerCase();
     setSearchQuery(query);
 
-    if (query === "") return onFetchSearchResults(null);
+    const url =
+      router.pathname + (normalizedQuery && `/?search=${normalizedQuery}`);
+    "url", url;
+    "pathname", router.pathname;
+    router.replace(url, undefined, { shallow: true });
+
+    if (normalizedQuery === "") return onFetchSearchResults(null);
+
+    const movieType = router.pathname.slice(1);
 
     if (router.pathname === "/bookmarks") {
       const searchResults = bookmarksData.filter((bookmark) => {
-        return bookmark.title.toLowerCase().includes(query.toLowerCase());
+        const title = bookmark.title || bookmark.name;
+        return title.toLowerCase().includes(normalizedQuery.toLowerCase());
       });
       onFetchSearchResults(searchResults);
     } else {
       const searchResults = await fetchData(
-        `/api/search?query=${query}&media-type=${router.pathname.slice(1)}`,
+        `/api/search?query=${normalizedQuery}&mediaType=${movieType}`,
       );
+      searchResults.forEach((result) => {
+        if (result.media_type) return;
+        result.media_type = movieType;
+      });
+
       onFetchSearchResults(searchResults);
     }
   }
