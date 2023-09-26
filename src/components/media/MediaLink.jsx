@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { useContext } from "react";
 
 import { BookmarksContext } from "@/context/bookmarks";
+import { SearchContext } from "@/context/search";
 
 import { API } from "@/constants";
 import { titleCase } from "@/utils";
@@ -14,11 +16,13 @@ const mediaIconNames = {
 };
 
 export default function MediaLink({ data, overlayInfo = false }) {
+  const router = useRouter();
   const formattedData = formatData(data);
   const releaseYear = new Date(
     formattedData.releaseDate || formattedData.firstAirDate,
   ).getFullYear();
 
+  const { onFetchSearchResults } = useContext(SearchContext);
   const { bookmarksData, toggleBookmark } = useContext(BookmarksContext);
   const isBookmarked = bookmarksData.find(
     (bookmark) =>
@@ -32,6 +36,8 @@ export default function MediaLink({ data, overlayInfo = false }) {
 
   function handleBookmark() {
     toggleBookmark(formattedData);
+    if (router.pathname === "/bookmarks") {
+    }
   }
 
   return (
