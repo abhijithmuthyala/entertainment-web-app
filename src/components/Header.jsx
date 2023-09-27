@@ -11,7 +11,7 @@ const navIcons = [
 
 export default function Header() {
   return (
-    <div className="bg-background-muted px-4 lg:h-[min(60rem,calc(100vh-4rem))] lg:max-w-[6rem] lg:rounded-3xl lg:p-8">
+    <div className="sticky top-0 z-10 bg-background-muted px-4 lg:top-8 lg:h-[min(60rem,calc(100vh-4rem))] lg:max-w-[6rem] lg:rounded-3xl lg:p-8">
       <header className="flex min-h-header flex-wrap items-center justify-between lg:h-full lg:flex-col lg:gap-y-20">
         <Image
           src="/logo.svg"
