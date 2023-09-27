@@ -22,3 +22,4 @@ export const API = {
 };
 
 export const HORIZONTAL_SCROLL_UNITS = 10;
+export const DEBOUNCE_THRESHOLD = 400;
