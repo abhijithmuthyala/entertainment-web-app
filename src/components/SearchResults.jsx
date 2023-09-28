@@ -19,6 +19,7 @@ export default function SearchResults({ data }) {
   }
 
   const formattedData = formatData(data);
+  const isBookmarksPage = router.pathname === "/bookmarks";
 
   function onPageChange(newPage) {
     const normalisedQuery = router.query.search || "";
@@ -36,10 +37,12 @@ export default function SearchResults({ data }) {
         heading={"Search results"}
         mediaData={formattedData.results}
       />
-      <Pagination
-        totalPages={formattedData.totalPages}
-        onPageChange={onPageChange}
-      />
+      {!isBookmarksPage && (
+        <Pagination
+          totalPages={formattedData.totalPages}
+          onPageChange={onPageChange}
+        />
+      )}
     </>
   );
 }
