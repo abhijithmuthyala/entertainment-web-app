@@ -36,4 +36,4 @@ next-env.d.ts
 
 design
 *test.*
-.vscode
+.vscode/
