@@ -8,18 +8,28 @@ import { BookmarksContext } from "@/context/bookmarks";
 import { SearchContext } from "@/context/search";
 
 import { API } from "@/constants";
-import { titleCase } from "@/utils";
+import { formatData, titleCase } from "@/utils";
 
 const mediaIconNames = {
   movie: "movies",
   tv: "tv-series",
 };
 
+const requiredFields = new Set([
+  "releaseDate",
+  "firstAirDate",
+  "id",
+  "mediaType",
+  "title",
+  "name",
+  "backdropPath",
+]);
+
 export default function MediaLink({ data, overlayInfo = false }) {
   const router = useRouter();
   const [showSkeleton, setShowSkeleton] = useState(true);
 
-  const formattedData = formatData(data);
+  const formattedData = formatData(data, requiredFields);
   const releaseYear = new Date(
     formattedData.releaseDate || formattedData.firstAirDate,
   ).getFullYear();
@@ -97,34 +107,4 @@ export default function MediaLink({ data, overlayInfo = false }) {
       ></button>
     </li>
   );
-}
-
-function formatData(data) {
-  const formattedData = {};
-  const requiredFields = new Set([
-    "releaseDate",
-    "firstAirDate",
-    "id",
-    "mediaType",
-    "title",
-    "name",
-    "backdropPath",
-  ]);
-
-  for (const key in data) {
-    const formattedKey = key
-      .split("_")
-      .map((word, index) => {
-        if (index === 0) {
-          return word.replace(word[0], word[0].toLowerCase());
-        }
-        return word.replace(word[0], word[0].toUpperCase());
-      })
-      .join("");
-    if (requiredFields.has(formattedKey)) {
-      formattedData[formattedKey] = data[key];
-    }
-  }
-
-  return formattedData;
 }

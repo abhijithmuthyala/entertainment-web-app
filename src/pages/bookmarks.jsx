@@ -32,9 +32,8 @@ export default function BookmarksPage() {
       const title = bookmark.title || bookmark.name;
       return title.toLowerCase().includes(searchQuery.toLowerCase());
     });
-  router.query, searchQuery, searchResults;
 
-  const searchContent = <SearchResults data={searchResults} />;
+  const searchContent = <SearchResults data={{ results: searchResults }} />;
   const bookmarksContent = (
     <>
       {bookmarkedMovies.length === 0 && bookmarkedSeries.length === 0 && (

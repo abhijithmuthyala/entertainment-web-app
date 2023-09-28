@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
 
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 
-import { BookmarksContext } from "@/context/bookmarks";
 import { SearchContext } from "@/context/search";
 
 import { DEBOUNCE_THRESHOLD } from "@/constants";
-import { fetchData } from "@/utils";
 
 const searchLabels = {
   "/": "Search for movies or TV series",
@@ -17,58 +15,29 @@ const searchLabels = {
 
 export default function SearchForm() {
   const router = useRouter();
-  const { onFetchSearchResults } = useContext(SearchContext);
-  const { bookmarksData } = useContext(BookmarksContext);
-  const [searchQuery, setSearchQuery] = useState("");
-  const searchQueryRef = useRef(searchQuery);
+  const { updateSearchResults } = useContext(SearchContext);
   const timerRef = useRef(null);
 
   const label = searchLabels[router.pathname];
+  const searchQuery = router.query.search || "";
 
   function handleSubmit(event) {
     event.preventDefault();
   }
 
-  async function handleChange(event) {
+  function handleChange(event) {
     const query = event.target.value;
     const normalizedQuery = query.trim().toLowerCase();
-    setSearchQuery(query);
-    searchQueryRef.current = normalizedQuery;
+    const url = encodeURI(
+      router.pathname + (normalizedQuery && `?search=${normalizedQuery}`),
+    );
 
-    const url =
-      router.pathname + (normalizedQuery && `?search=${normalizedQuery}`);
     router.replace(url, undefined, { shallow: true });
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(function queueSearchResults() {
       updateSearchResults(normalizedQuery);
     }, DEBOUNCE_THRESHOLD);
-  }
-
-  async function updateSearchResults(normalizedQuery) {
-    if (normalizedQuery === "") return onFetchSearchResults(null);
-
-    if (router.pathname === "/bookmarks") {
-      const searchResults = bookmarksData.filter((bookmark) => {
-        const title = bookmark.title || bookmark.name;
-        return title.toLowerCase().includes(normalizedQuery.toLowerCase());
-      });
-      return onFetchSearchResults(searchResults);
-    }
-
-    const movieType = router.pathname.slice(1);
-    const searchResults = await fetchData(
-      `/api/search?query=${normalizedQuery}&mediaType=${movieType}`,
-    );
-
-    // If the search query has changed since the fetch was initiated, ignore the results
-    if (normalizedQuery !== searchQueryRef.current) return;
-
-    searchResults.forEach((result) => {
-      if (result.media_type) return;
-      result.media_type = movieType;
-    });
-    onFetchSearchResults(searchResults);
   }
 
   return (
@@ -86,7 +55,6 @@ export default function SearchForm() {
             type="search"
             name="search"
             id="search"
-            value={searchQuery}
             onChange={handleChange}
             placeholder={label}
             className="grow px-1 placeholder:opacity-75 focus:outline-none"
