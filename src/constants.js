@@ -3,8 +3,8 @@ const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/original";
 const keyQueryParam = `api_key=${process.env.KEY}`;
 
 export const API = {
-  search(type = "multi", query) {
-    return `${tmdbBaseUrl}/search/${type}?query=${query}&${keyQueryParam}`;
+  search(type = "multi", query, page = 1) {
+    return `${tmdbBaseUrl}/search/${type}?query=${query}&${keyQueryParam}&page=${page}`;
   },
   details(id) {
     return `${tmdbBaseUrl}/movie/${id}?${keyQueryParam}`;
@@ -23,3 +23,4 @@ export const API = {
 
 export const HORIZONTAL_SCROLL_UNITS = 10;
 export const DEBOUNCE_THRESHOLD = 400;
+export const MAX_PAGINATION_PAGES = 10;
