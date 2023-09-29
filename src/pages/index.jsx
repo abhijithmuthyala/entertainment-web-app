@@ -8,8 +8,9 @@ import MediaLinksList from "@/components/media/MediaLinksList";
 import MediaSection from "@/components/media/MediaSection";
 import MediaSectionGrid from "@/components/media/MediaSectionGrid";
 
-import { API, HORIZONTAL_SCROLL_UNITS } from "@/constants";
 import { SearchContext } from "@/context/search";
+
+import { API, HORIZONTAL_SCROLL_UNITS, PREVIEW_UNITS } from "@/constants";
 import { fetchData, insertMediaTypeField } from "@/utils";
 
 export default function Home({
@@ -18,7 +19,6 @@ export default function Home({
   popularSeriesData,
 }) {
   const { searchResults } = useContext(SearchContext);
-  const trendingDataSlice = trendingData.slice(0, HORIZONTAL_SCROLL_UNITS);
 
   return (
     <>
@@ -43,7 +43,7 @@ export default function Home({
                 <MediaLinksList
                   horizontallyScrollable
                   overlayInfo
-                  data={trendingDataSlice}
+                  data={trendingData}
                 />
               </MediaSection>
             </div>
@@ -84,9 +84,9 @@ export async function getServerSideProps(ctx) {
 
     return {
       props: {
-        trendingData: trending.results,
-        popularMoviesData: popularMovies.results,
-        popularSeriesData: popularSeries.results,
+        trendingData: trending.results.slice(0, HORIZONTAL_SCROLL_UNITS),
+        popularMoviesData: popularMovies.results.slice(0, PREVIEW_UNITS),
+        popularSeriesData: popularSeries.results.slice(0, PREVIEW_UNITS),
       },
     };
   } catch (error) {
