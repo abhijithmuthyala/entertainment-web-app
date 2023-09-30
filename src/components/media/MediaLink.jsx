@@ -24,7 +24,12 @@ const requiredFields = new Set([
   "backdropPath",
 ]);
 
-export default function MediaLink({ data, overlayInfo = false }) {
+export default function MediaLink({
+  data,
+  priority,
+  shouldLoadEagerly,
+  overlayInfo = false,
+}) {
   const router = useRouter();
   const [showSkeleton, setShowSkeleton] = useState(true);
 
@@ -90,7 +95,8 @@ export default function MediaLink({ data, overlayInfo = false }) {
             role="presentation"
             width={470}
             height={230}
-            loading="lazy"
+            priority={priority}
+            loading={shouldLoadEagerly ? "eager" : undefined}
             onLoad={removeSkeleton}
             className={`h-full object-cover brightness-75 transition-all duration-200 group-hover:scale-125  `}
           />

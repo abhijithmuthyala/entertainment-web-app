@@ -17,6 +17,7 @@ export default function Header() {
           src="/logo.svg"
           width={25}
           height={20}
+          loading="eager"
           alt="Entertainment web app logo - A rectangle filled in red, with three small black lines at the top running in the down-right direction."
           className="md:scale-150"
         />
@@ -49,6 +50,7 @@ function NavLink({ href, name }) {
           width={16}
           height={16}
           src={`/icon-nav-${name}.svg`}
+          loading="eager"
           className={`${
             isCurrentPage ? "brightness-[100]" : ""
           } aspect-square md:scale-125`}
