@@ -20,10 +20,12 @@ export default function Header() {
           alt="Entertainment web app logo - A rectangle filled in red, with three small black lines at the top running in the down-right direction."
           className="md:scale-150"
         />
-        <nav className="mx-auto flex items-center gap-x-6 gap-y-10 md:gap-y-12 lg:flex-col">
-          {navIcons.map(function renderNavLink({ href, name }) {
-            return <NavLink href={href} name={name} key={name} />;
-          })}
+        <nav>
+          <ol className="mx-auto flex items-center gap-x-6 gap-y-10 md:gap-y-12 lg:flex-col">
+            {navIcons.map(function renderNavLink({ href, name }) {
+              return <NavLink href={href} name={name} key={name} />;
+            })}
+          </ol>
         </nav>
         <button
           aria-label="Profile"
