@@ -1,5 +1,5 @@
 const tmdbBaseUrl = "https://api.themoviedb.org/3";
-const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/original";
+const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/w500";
 const keyQueryParam = `api_key=${process.env.KEY}`;
 
 export const API = {
@@ -25,3 +25,4 @@ export const HORIZONTAL_SCROLL_UNITS = 10;
 export const DEBOUNCE_THRESHOLD = 400;
 export const MAX_PAGINATION_PAGES = 10;
 export const PREVIEW_UNITS = 10;
+export const EAGER_LOAD_UNITS = 4;

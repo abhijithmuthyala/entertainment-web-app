@@ -1,5 +1,7 @@
 import MediaLink from "./MediaLink";
 
+import { EAGER_LOAD_UNITS } from "@/constants";
+
 export default function MediaLinksList({
   horizontallyScrollable = false,
   overlayInfo = false,
@@ -9,11 +11,13 @@ export default function MediaLinksList({
 
   return (
     <Layout>
-      {data.map((mediaData) => (
+      {data.map((mediaData, index) => (
         <MediaLink
           key={mediaData.id}
           data={mediaData}
           overlayInfo={overlayInfo}
+          priority={index === 0}
+          shouldLoadEagerly={index < EAGER_LOAD_UNITS}
         />
       ))}
     </Layout>
