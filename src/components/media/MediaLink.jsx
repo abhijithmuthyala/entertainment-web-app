@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 
 import { BookmarksContext } from "@/context/bookmarks";
-import { SearchContext } from "@/context/search";
 
 import { API } from "@/constants";
 import { formatData, titleCase } from "@/utils";
@@ -34,7 +33,6 @@ export default function MediaLink({ data, overlayInfo = false }) {
     formattedData.releaseDate || formattedData.firstAirDate,
   ).getFullYear();
 
-  const { onFetchSearchResults } = useContext(SearchContext);
   const { bookmarksData, toggleBookmark } = useContext(BookmarksContext);
   const isBookmarked = bookmarksData.find(
     (bookmark) =>
@@ -62,10 +60,10 @@ export default function MediaLink({ data, overlayInfo = false }) {
         <div
           className={"flex flex-col-reverse gap-y-1" + " " + overlayedClasses}
         >
-          <h3 className="font-bold">
+          <h3 className="font-bold md:text-md">
             {formattedData.title || formattedData.name}
           </h3>
-          <div className="flex items-center gap-4 text-sm">
+          <div className="flex items-center gap-4 text-sm md:text-base">
             <p className="">{releaseYear}</p>
             <p className="flex items-center gap-2 align-bottom">
               <Image

@@ -57,7 +57,7 @@ export default function SearchForm() {
             id="search"
             onChange={handleChange}
             placeholder={label}
-            className="grow px-1 placeholder:opacity-75 focus:outline-none"
+            className="grow px-1 placeholder:opacity-75 focus:outline-none md:text-xl"
           />
           <button
             type="submit"

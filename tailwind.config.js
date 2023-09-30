@@ -17,6 +17,7 @@ const config = {
       md: "var(--fs-md)",
       lg: "var(--fs-lg)",
       xl: "var(--fs-xl)",
+      "2xl": "var(--fs-2xl)",
     },
     colors: {
       highlight: "var(--highlight)",
@@ -63,7 +64,8 @@ const config = {
         "bookmark-full": "url('/icon-bookmark-full.svg')",
       },
       minHeight: {
-        header: "var(--header-height)",
+        "header-mobile": "var(--header-height)",
+        "header-desktop": "var(--header-height-desktop)",
       },
       borderWidth: {
         1: "1px",

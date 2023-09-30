@@ -39,6 +39,7 @@
 
     /* whitespace: 4 6 8 16 18 24 80 */
     --header-height: 3.5rem;
+    --header-height-desktop: 4.5rem;
   }
 
   li {
