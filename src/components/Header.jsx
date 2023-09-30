@@ -46,7 +46,6 @@ function NavLink({ href, name }) {
       <Link href={href} aria-label={name + "page"}>
         <Image
           alt=""
-          role="presentation"
           width={16}
           height={16}
           src={`/icon-nav-${name}.svg`}

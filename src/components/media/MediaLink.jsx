@@ -74,7 +74,6 @@ export default function MediaLink({
               <Image
                 src={`/icon-nav-${mediaIconNames[formattedData.mediaType]}.svg`}
                 alt=""
-                role="presentation"
                 width={12}
                 height={12}
                 className="inline-block aspect-square w-3 object-cover object-center align-middle brightness-[100]"
@@ -92,7 +91,6 @@ export default function MediaLink({
           <Image
             src={API.image(formattedData.backdropPath)}
             alt=""
-            role="presentation"
             width={470}
             height={230}
             priority={priority}
