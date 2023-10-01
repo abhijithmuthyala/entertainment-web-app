@@ -29,7 +29,7 @@ export default function SeriesPage({ seriesData }) {
         <SearchForm />
         {searchResults && <SearchResults data={searchResults} />}
         {!searchResults && (
-          <MediaSectionGrid heading="movies" mediaData={seriesData} />
+          <MediaSectionGrid heading="TV series" mediaData={seriesData} />
         )}
       </main>
     </>
