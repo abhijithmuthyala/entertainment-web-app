@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 import { BookmarksProvider } from "@/context/bookmarks";
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
         </SearchProvider>
       </BookmarksProvider>
+      <Footer />
     </div>
   );
 }
