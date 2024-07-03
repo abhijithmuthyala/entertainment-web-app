@@ -9,7 +9,8 @@ import SearchResults from "@/components/SearchResults";
 import { SearchContext } from "@/context/search";
 
 import { API } from "@/constants";
-import { fetchData, insertMediaTypeField } from "@/utils";
+import { insertMediaTypeField } from "@/helpers";
+import { fetchData } from "@/utils";
 
 export default function SeriesPage({ seriesData }) {
   const { searchResults } = useContext(SearchContext);

@@ -8,7 +8,7 @@ import MediaSectionGrid from "./media/MediaSectionGrid";
 import { SearchContext } from "@/context/search";
 
 import { MAX_PAGINATION_PAGES } from "@/constants";
-import { formatData } from "@/utils";
+import { formatData } from "@/helpers";
 
 export default function SearchResults({ data }) {
   const router = useRouter();

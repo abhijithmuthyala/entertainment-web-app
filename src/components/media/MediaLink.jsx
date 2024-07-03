@@ -7,7 +7,8 @@ import { useContext, useState } from "react";
 import { BookmarksContext } from "@/context/bookmarks";
 
 import { API } from "@/constants";
-import { formatData, titleCase } from "@/utils";
+import { formatData } from "@/helpers";
+import { titleCase } from "@/utils";
 
 const mediaIconNames = {
   movie: "movies",

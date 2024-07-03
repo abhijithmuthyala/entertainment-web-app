@@ -1,7 +1,3 @@
-export function insertMediaTypeField(data, mediaType) {
-  data.forEach((mediaData) => (mediaData.media_type = mediaType));
-}
-
 export function toggleKey(set, key) {
   if (set.has(key)) {
     set.delete(key);
@@ -28,19 +24,15 @@ export function toCamelCase(string) {
     .replace(/^([A-Z])/, (match) => match.toLowerCase());
 }
 
-export function formatData(data, requiredFields = null) {
-  const formattedData = {};
+export function debounce(fn, delay) {
+  let deferredCallbackId = null;
 
-  for (const key in data) {
-    const formattedKey = toCamelCase(key);
-    if (!requiredFields) {
-      formattedData[formattedKey] = data[key];
-      continue;
+  return function debounced(...args) {
+    if (deferredCallbackId !== null) {
+      clearTimeout(deferredCallbackId);
     }
-    if (requiredFields.has(formattedKey)) {
-      formattedData[formattedKey] = data[key];
-    }
-  }
-
-  return formattedData;
+    deferredCallbackId = setTimeout(function executeDeferredFn() {
+      fn(...args);
+    }, delay);
+  };
 }

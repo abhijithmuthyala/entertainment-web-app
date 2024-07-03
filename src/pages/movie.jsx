@@ -9,7 +9,8 @@ import MediaSectionGrid from "@/components/media/MediaSectionGrid";
 import { SearchContext } from "@/context/search";
 
 import { API } from "@/constants";
-import { fetchData, insertMediaTypeField } from "@/utils";
+import { insertMediaTypeField } from "@/helpers";
+import { fetchData } from "@/utils";
 
 export default function MoviesPage({ moviesData }) {
   const { searchResults } = useContext(SearchContext);
