@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Footer() {
+export default function Footer({ className }) {
   return (
-    <footer className="px-4 py-8">
+    <footer className={"px-4 py-8" + " " + className}>
       <Link
         href="/"
         aria-label="External link to the documentation of TMDB API"

@@ -13,8 +13,9 @@ export default function useDebouncedQuery(init, delay = 300) {
   );
 
   function onChange(query) {
-    setQuery(query);
-    memoisedDebouncedUpdater(query);
+    const normalisedQuery = query.trim();
+    setQuery(normalisedQuery);
+    memoisedDebouncedUpdater(normalisedQuery);
   }
 
   return {

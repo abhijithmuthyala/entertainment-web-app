@@ -1,93 +1,68 @@
-import { useRouter } from "next/router";
-
-import { useContext, useState } from "react";
-
-import FeedbackMessage from "./FeedbackMessage";
+import usePagination from "@/hooks/usePagination";
+import { fetchData } from "@/utils";
+import { useEffect, useState } from "react";
 import MediaSectionGrid from "./media/MediaSectionGrid";
 
-import { SearchContext } from "@/context/search";
+function usePaginatedResults(query, type = "multi") {
+  const [results, setResults] = useState([]);
+  const pagination = usePagination(1);
 
-import { MAX_PAGINATION_PAGES } from "@/constants";
-import { formatData } from "@/helpers";
-
-export default function SearchResults({ data }) {
-  const router = useRouter();
-  const { updateSearchResults } = useContext(SearchContext);
-
-  if (data.results.length === 0) {
-    return <FeedbackMessage message="No results found." />;
+  function onIntersection() {
+    pagination.onNext();
   }
 
-  const formattedData = formatData(data);
-  const isBookmarksPage = router.pathname === "/bookmarks";
+  useEffect(
+    function fetchresultsEffect() {
+      if (query === "") {
+        return setResults([]);
+      }
 
-  function onPageChange(newPage) {
-    const normalisedQuery = router.query.search || "";
-    updateSearchResults(normalisedQuery, newPage);
-    router.replace(
-      `${router.pathname}?search=${normalisedQuery}&page=${newPage}`,
-      undefined,
-      { shallow: true },
+      let ignore = false;
+
+      (async function updateSearchResult() {
+        try {
+          const data = await fetchData(
+            `/api/search?query=${query}&media_type=${type}&page=${pagination.page}`,
+          );
+          if (ignore) return;
+          setResults((results) => [...results, ...data.results]);
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+
+      return function ignoreStaleData() {
+        ignore = true;
+      };
+    },
+    [query, pagination.page],
+  );
+
+  return { results };
+}
+
+export default function SearchResults({ query }) {
+  // const {} = useQuery()
+  const { results } = usePaginatedResults(query);
+
+  if (!results.length) return null;
+  if (query !== "" && results.length === 0) {
+    return (
+      <p>
+        No results found for <span className="font-bold">{query}</span>
+      </p>
     );
   }
 
   return (
-    <>
-      <MediaSectionGrid
-        heading={"Search results"}
-        mediaData={formattedData.results}
-      />
-      {!isBookmarksPage && (
-        <Pagination
-          totalPages={formattedData.totalPages}
-          onPageChange={onPageChange}
-        />
-      )}
-    </>
+    <MediaSectionGrid heading={`Results for ${query}`} mediaData={results} />
   );
 }
 
-function Pagination({ totalPages, onPageChange }) {
-  const [page, setPage] = useState(1);
-
-  const maxPages = Math.min(totalPages, MAX_PAGINATION_PAGES);
-
-  function handleNextPage() {
-    handlePageChange(page + 1);
-  }
-
-  function handlePreviousPage() {
-    handlePageChange(page - 1);
-  }
-
-  function handlePageChange(newPage) {
-    setPage(newPage);
-    onPageChange(newPage);
-  }
-
+function SearchSuggestion({ data }) {
   return (
-    <div className="flex items-center justify-center gap-4 py-20">
-      <PaginationButton onClick={handlePreviousPage} disabled={page === 1}>
-        Previous
-      </PaginationButton>
-      <span className="bg-background-muted px-4 py-2">
-        Page {page} of {maxPages}
-      </span>
-      <PaginationButton onClick={handleNextPage} disabled={page === maxPages}>
-        Next
-      </PaginationButton>
+    <div>
+      <p>{data.title ?? data.name}</p>
     </div>
-  );
-}
-
-function PaginationButton({ children, onClick, disabled }) {
-  return (
-    <button
-      className="rounded-md bg-highlight bg-opacity-50 px-4 py-2 font-bold text-primary"
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </button>
   );
 }

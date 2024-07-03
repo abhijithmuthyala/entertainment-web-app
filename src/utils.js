@@ -11,8 +11,8 @@ export function titleCase(sentence) {
     .join(" ");
 }
 
-export async function fetchData(url) {
-  const response = await fetch(url);
+export async function fetchData(url, options = {}) {
+  const response = await fetch(url, options);
   const data = await response.json();
   return data;
 }

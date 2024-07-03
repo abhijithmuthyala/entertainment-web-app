@@ -80,7 +80,7 @@ html {
 }
 
 #__next {
-  min-height: 100vh;
+  display: grid;
 
   font-family: var(--ff-outfit);
   font-size: var(--fs-base);

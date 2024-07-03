@@ -61,6 +61,7 @@ const config = {
         avatar: "url('/image-avatar.png')",
         "bookmark-empty": "url('/icon-bookmark-empty.svg')",
         "bookmark-full": "url('/icon-bookmark-full.svg')",
+        search: "url(/icon-nav-search.svg)",
       },
       minHeight: {
         "header-mobile": "var(--header-height)",

@@ -35,9 +35,10 @@ export default function MediaLink({
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   const formattedData = formatData(data, requiredFields);
-  const releaseYear = new Date(
-    formattedData.releaseDate || formattedData.firstAirDate,
-  ).getFullYear();
+  const releaseYear =
+    new Date(
+      formattedData.releaseDate || formattedData.firstAirDate,
+    ).getFullYear() || null;
 
   const { bookmarksData, toggleBookmark } = useContext(BookmarksContext);
   const isBookmarked = bookmarksData.find(
@@ -70,7 +71,7 @@ export default function MediaLink({
             {formattedData.title || formattedData.name}
           </h3>
           <div className="flex items-center gap-4 text-sm md:text-base">
-            <p className="">{releaseYear}</p>
+            {releaseYear && <p className="">{releaseYear}</p>}
             <p className="flex items-center gap-1 align-bottom">
               <Image
                 src={`/icon-nav-${mediaIconNames[formattedData.mediaType]}.svg`}
