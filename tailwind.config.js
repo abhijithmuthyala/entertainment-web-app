@@ -59,7 +59,6 @@ const config = {
     extend: {
       backgroundImage: {
         avatar: "url('/image-avatar.png')",
-        search: "url('/icon-search.svg')",
         "bookmark-empty": "url('/icon-bookmark-empty.svg')",
         "bookmark-full": "url('/icon-bookmark-full.svg')",
       },

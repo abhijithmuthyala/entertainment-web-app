@@ -1,19 +1,12 @@
 import Head from "next/head";
 
-import { useContext } from "react";
-
-import SearchForm from "@/components/SearchForm";
-import SearchResults from "@/components/SearchResults";
 import MediaSectionGrid from "@/components/media/MediaSectionGrid";
-
-import { SearchContext } from "@/context/search";
 
 import { API } from "@/constants";
 import { insertMediaTypeField } from "@/helpers";
 import { fetchData } from "@/utils";
 
 export default function MoviesPage({ moviesData }) {
-  const { searchResults } = useContext(SearchContext);
   return (
     <>
       <Head>
@@ -27,11 +20,7 @@ export default function MoviesPage({ moviesData }) {
         <h1 className="sr-only">
           Explore a wide collection of movies across genres
         </h1>
-        <SearchForm />
-        {searchResults && <SearchResults data={searchResults} />}
-        {!searchResults && (
-          <MediaSectionGrid heading="movies" mediaData={moviesData} />
-        )}
+        <MediaSectionGrid heading="movies" mediaData={moviesData} />
       </main>
     </>
   );

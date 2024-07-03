@@ -71,13 +71,13 @@ export default function MediaLink({
           </h3>
           <div className="flex items-center gap-4 text-sm md:text-base">
             <p className="">{releaseYear}</p>
-            <p className="flex items-center gap-2 align-bottom">
+            <p className="flex items-center gap-1 align-bottom">
               <Image
                 src={`/icon-nav-${mediaIconNames[formattedData.mediaType]}.svg`}
                 alt=""
                 width={12}
                 height={12}
-                className="inline-block aspect-square w-3 object-cover object-center align-middle brightness-[100]"
+                className="inline-block aspect-square w-3 object-cover object-center align-middle invert"
               />
               {titleCase(formattedData.mediaType)}
             </p>

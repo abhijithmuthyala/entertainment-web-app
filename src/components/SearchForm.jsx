@@ -6,19 +6,11 @@ import { SearchContext } from "@/context/search";
 
 import { DEBOUNCE_THRESHOLD } from "@/constants";
 
-const searchLabels = {
-  "/": "Search for movies or TV series",
-  "/movie": "Search for movies",
-  "/tv": "Search for TV series",
-  "/bookmarks": "Search for bookmarked shows",
-};
-
 export default function SearchForm() {
   const router = useRouter();
   const { updateSearchResults } = useContext(SearchContext);
   const timerRef = useRef(null);
 
-  const label = searchLabels[router.pathname];
   const searchQuery = router.query.search || "";
 
   function handleSubmit(event) {
@@ -48,7 +40,7 @@ export default function SearchForm() {
         className="rounded-md bg-background-muted px-2 py-3 focus-within:outline focus-within:outline-1 focus-within:outline-highlight lg:px-4"
       >
         <label htmlFor="search" className="sr-only">
-          {label}
+          Search for movies, TV series and people
         </label>
         <div className="flex flex-row-reverse flex-wrap items-center gap-x-4 ">
           <input
@@ -62,7 +54,7 @@ export default function SearchForm() {
           <button
             type="submit"
             aria-label={`Search for ${searchQuery}`}
-            className="aspect-square w-6 bg-search bg-contain bg-center bg-no-repeat"
+            className="bg-search aspect-square w-6 bg-contain bg-center bg-no-repeat"
           />
         </div>
       </form>

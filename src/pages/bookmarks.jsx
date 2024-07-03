@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 
 import FeedbackMessage from "@/components/FeedbackMessage";
-import SearchForm from "@/components/SearchForm";
 import SearchResults from "@/components/SearchResults";
 import MediaSectionGrid from "@/components/media/MediaSectionGrid";
 
@@ -65,7 +64,6 @@ export default function BookmarksPage() {
       </Head>
       <main>
         <h1 className="sr-only">Your bookmarks</h1>
-        <SearchForm />
         {searchQuery ? searchContent : bookmarksContent}
       </main>
     </>
