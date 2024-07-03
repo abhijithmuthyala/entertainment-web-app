@@ -60,7 +60,7 @@ export default function MediaLink({
   }
 
   return (
-    <li className="group relative overflow-hidden rounded-lg transition-all hover:scale-105 hover:bg-background-muted">
+    <li className="group relative overflow-hidden rounded-lg transition-all hover:bg-background-muted">
       <Link href={"/"} className="flex flex-col-reverse gap-y-2">
         <div
           className={"flex flex-col-reverse gap-y-1" + " " + overlayedClasses}
@@ -96,7 +96,7 @@ export default function MediaLink({
             priority={priority}
             loading={shouldLoadEagerly ? "eager" : undefined}
             onLoad={removeSkeleton}
-            className={`h-full object-cover brightness-75 transition-all duration-200 group-hover:scale-125  `}
+            className={`h-full object-cover brightness-75 transition-all duration-200 group-hover:scale-110  `}
           />
         </div>
       </Link>
