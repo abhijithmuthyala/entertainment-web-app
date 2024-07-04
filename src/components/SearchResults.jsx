@@ -1,46 +1,45 @@
 import usePagination, { nextPageAction } from "@/hooks/usePagination";
+import useQuery from "@/hooks/useQuery";
 import { fetchData } from "@/utils";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import FeedbackMessage from "./FeedbackMessage";
 import MediaSectionGrid from "./media/MediaSectionGrid";
 import ObserveIntersection from "./ObserveIntersection";
 
-function useSearchResults(query, page) {
-  const [results, setResults] = useState([]);
-
-  useEffect(
-    function fetchresultsEffect() {
-      if (query === "") {
-        return setResults([]);
-      }
-
-      let ignore = false;
-
-      (async function updateSearchResult() {
-        try {
-          const data = await fetchData(
-            `/api/search?query=${query}&media_type=multi&page=${page}`,
-          );
-          if (ignore) return;
-          setResults((results) => [...results, ...data.results]);
-        } catch (error) {
-          console.error(error);
-        }
-      })();
-
-      return function ignoreStaleData() {
-        ignore = true;
-      };
-    },
-    [query, page],
-  );
-
-  return results;
+async function fetchSearchResults(query, page) {
+  if (query === "") return null;
+  try {
+    const data = await fetchData(
+      `/api/search?query=${query}&media_type=multi&page=${page}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export default function SearchResults({ query }) {
-  // const {} = useQuery()
+  const [results, setResults] = useState(null);
   const { page, dispatchPagination } = usePagination(1);
-  const results = useSearchResults(query, page);
+  const fetcher = useCallback(
+    async function fetcher() {
+      try {
+        return await fetchSearchResults(query, page);
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    [query, page],
+  );
+  const onSuccess = useCallback(function onSuccess(curr) {
+    setResults((prev) => (prev ? [...prev, ...curr] : curr));
+  }, []);
+  const onError = useCallback(function onError() {
+    setResults(null);
+  }, []);
+  const { error, status } = useQuery(fetcher, onSuccess, onError);
 
   const onIntersection = useCallback(
     function onIntersection() {
@@ -52,12 +51,21 @@ export default function SearchResults({ query }) {
     return { rootMargin: "128px" };
   }, []);
 
-  if (!results.length) return null;
-  if (query !== "" && results.length === 0) {
+  if (status === "error") {
     return (
-      <p>
-        No results found for <span className="font-bold">{query}</span>
-      </p>
+      <FeedbackMessage
+        message={error?.message ?? "Error fetching results, please try again."}
+      />
+    );
+  }
+  if (status === "pending" && !results) {
+    return <FeedbackMessage message="Loading results..." />;
+  }
+  if (!results) return null;
+
+  if (results.length === 0) {
+    return (
+      <FeedbackMessage message={`No results found for the query ${query}.`} />
     );
   }
 

@@ -1,34 +1,42 @@
 import { useEffect, useState } from "react";
 
-export default function useQuery(fetcher, onSuccess, onError) {
-  const [state, setState] = useState("idle"); // idle, pending, error
+export default function useQuery(fetcher, onSuccess = null, onError = null) {
+  const [status, setStatus] = useState("idle"); // idle, pending, error, success
   const [error, setError] = useState(null); // null, any
-  const [data, setData] = useState(null); // null, any
 
-  useEffect(function queryEffect() {
-    (async function fetchData() {
-      try {
-        let ignore = false;
-        const data = await fetcher();
+  useEffect(
+    function queryEffect() {
+      let ignore = false;
 
-        if (ignore) return;
+      (async function fetchData() {
+        try {
+          setStatus("pending");
+          setError(null);
+          const data = await fetcher();
 
-        setData(data);
-        setError(null);
-        setState("idle");
-        onSuccess(data);
-      } catch (error) {
-        setError(error instanceof Error ? error : new Error(err));
-        setState("error");
-        setData(null);
-        onError(error);
-      }
-    })();
+          if (ignore) return;
 
-    return function ignoreStaleData() {
-      ignore = true;
-    };
-  }, []);
+          setStatus("success");
 
-  return { state, data, error };
+          if (onSuccess) {
+            onSuccess(data);
+          }
+        } catch (error) {
+          setError(error instanceof Error ? error : new Error(err));
+          setStatus("error");
+
+          if (onError) {
+            onError(error);
+          }
+        }
+      })();
+
+      return function ignoreStaleData() {
+        ignore = true;
+      };
+    },
+    [onSuccess, onError, fetcher],
+  );
+
+  return { status, error };
 }
