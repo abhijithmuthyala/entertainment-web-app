@@ -20,8 +20,6 @@ function SearchFormAndSuggestions() {
   const router = useRouter();
   const query = useDebouncedQuery(router.query.query ?? "");
 
-  console.log(query.query, query.debounced);
-
   function handleChange(event) {
     const inputQuery = event.target.value;
     const url = encodeURI(router.pathname + `?query=${inputQuery}`);

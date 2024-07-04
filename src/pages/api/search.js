@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       },
     };
     const url = API.search(media_type, query, page);
-    const data = await fetchData(url, options);
+    const data = await fetchData(url, {});
     if (data.success === false) {
       throw new Error(data);
     }
