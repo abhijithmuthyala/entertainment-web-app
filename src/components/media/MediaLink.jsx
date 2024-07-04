@@ -1,12 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
-import { useContext, useState } from "react";
-
-import { BookmarksContext } from "@/context/bookmarks";
+import { useState } from "react";
 
 import { API } from "@/constants";
+import { useBookmarksContext } from "@/context/bookmarks";
 import { formatData } from "@/helpers";
 import { titleCase } from "@/utils";
 
@@ -31,7 +29,6 @@ export default function MediaLink({
   shouldLoadEagerly,
   overlayInfo = false,
 }) {
-  const router = useRouter();
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   const formattedData = formatData(data, requiredFields);
@@ -40,8 +37,8 @@ export default function MediaLink({
       formattedData.releaseDate || formattedData.firstAirDate,
     ).getFullYear() || null;
 
-  const { bookmarksData, toggleBookmark } = useContext(BookmarksContext);
-  const isBookmarked = bookmarksData.find(
+  const { bookmarks, toggleBookmark } = useBookmarksContext();
+  const isBookmarked = bookmarks.find(
     (bookmark) =>
       bookmark.id === formattedData.id &&
       bookmark.mediaType === formattedData.mediaType,
@@ -53,8 +50,6 @@ export default function MediaLink({
 
   function handleBookmark() {
     toggleBookmark(formattedData);
-    if (router.pathname === "/bookmarks") {
-    }
   }
 
   function removeSkeleton() {

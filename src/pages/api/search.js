@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     }
     res.status(200).json(data);
   } catch (error) {
-    console.error("💣🔥", error);
+    console.error(error);
     res.status(error.message.status).send(error.message.status_message);
   }
 }
