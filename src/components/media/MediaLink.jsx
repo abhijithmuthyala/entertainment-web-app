@@ -7,7 +7,8 @@ import { useContext, useState } from "react";
 import { BookmarksContext } from "@/context/bookmarks";
 
 import { API } from "@/constants";
-import { formatData, titleCase } from "@/utils";
+import { formatData } from "@/helpers";
+import { titleCase } from "@/utils";
 
 const mediaIconNames = {
   movie: "movies",
@@ -34,9 +35,10 @@ export default function MediaLink({
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   const formattedData = formatData(data, requiredFields);
-  const releaseYear = new Date(
-    formattedData.releaseDate || formattedData.firstAirDate,
-  ).getFullYear();
+  const releaseYear =
+    new Date(
+      formattedData.releaseDate || formattedData.firstAirDate,
+    ).getFullYear() || null;
 
   const { bookmarksData, toggleBookmark } = useContext(BookmarksContext);
   const isBookmarked = bookmarksData.find(
@@ -69,14 +71,14 @@ export default function MediaLink({
             {formattedData.title || formattedData.name}
           </h3>
           <div className="flex items-center gap-4 text-sm md:text-base">
-            <p className="">{releaseYear}</p>
-            <p className="flex items-center gap-2 align-bottom">
+            {releaseYear && <p className="">{releaseYear}</p>}
+            <p className="flex items-center gap-1 align-bottom">
               <Image
                 src={`/icon-nav-${mediaIconNames[formattedData.mediaType]}.svg`}
                 alt=""
                 width={12}
                 height={12}
-                className="inline-block aspect-square w-3 object-cover object-center align-middle brightness-[100]"
+                className="inline-block aspect-square w-3 object-cover object-center align-middle invert"
               />
               {titleCase(formattedData.mediaType)}
             </p>

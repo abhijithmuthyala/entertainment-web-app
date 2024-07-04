@@ -41,70 +41,67 @@
     --header-height: 3.5rem;
     --header-height-desktop: 4.5rem;
   }
+}
 
-  li {
-    list-style: none;
+li {
+  list-style: none;
+}
+
+input {
+  background: none;
+}
+
+html {
+  overflow-y: scroll;
+  background-color: var(--background-intense);
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-corner {
+  display: none;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--highlight);
+  background-clip: content-box;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--blue-300);
+  border-radius: 0.5rem;
+  margin-block: 0.25rem;
+}
+
+#__next {
+  display: grid;
+
+  font-family: var(--ff-outfit);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-normal);
+
+  color: var(--primary);
+  background-color: var(--background-intense);
+}
+
+.skeleton {
+  animation: skeleton 1s ease-in-out infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-color: var(--skeleton-intense);
   }
-
-  input {
-    background: none;
+  50% {
+    background-color: var(--skeleton-muted);
   }
-
-  html {
-    overflow-y: scroll;
-    background-color: var(--background-intense);
-  }
-
-  /* custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 0.75vw;
-    height: 0.5vw;
-  }
-
-  ::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--blue-300);
-    border-radius: 0.5rem;
-    margin-block: 0.25rem;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--red-900);
-    border-radius: 0.5rem;
-  }
-
-  html {
-    scrollbar-width: 0.75vw;
-    scrollbar-color: var(--highlight) var(--blue-300);
-  }
-
-  #__next {
-    min-height: 100vh;
-
-    font-family: var(--ff-outfit);
-    font-size: var(--fs-base);
-    font-weight: var(--fw-normal);
-
-    color: var(--primary);
-    background-color: var(--background-intense);
-  }
-
-  .skeleton {
-    animation: skeleton 1s ease-in-out infinite;
-  }
-
-  @keyframes skeleton {
-    0% {
-      background-color: var(--skeleton-intense);
-    }
-    50% {
-      background-color: var(--skeleton-muted);
-    }
-    100% {
-      background-color: var(--skeleton-intense);
-    }
+  100% {
+    background-color: var(--skeleton-intense);
   }
 }
