@@ -1,15 +1,11 @@
-import usePagination from "@/hooks/usePagination";
+import usePagination, { nextPageAction } from "@/hooks/usePagination";
 import { fetchData } from "@/utils";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import MediaSectionGrid from "./media/MediaSectionGrid";
+import ObserveIntersection from "./ObserveIntersection";
 
-function usePaginatedResults(query, type = "multi") {
+function useSearchResults(query, page) {
   const [results, setResults] = useState([]);
-  const pagination = usePagination(1);
-
-  function onIntersection() {
-    pagination.onNext();
-  }
 
   useEffect(
     function fetchresultsEffect() {
@@ -22,7 +18,7 @@ function usePaginatedResults(query, type = "multi") {
       (async function updateSearchResult() {
         try {
           const data = await fetchData(
-            `/api/search?query=${query}&media_type=${type}&page=${pagination.page}`,
+            `/api/search?query=${query}&media_type=multi&page=${page}`,
           );
           if (ignore) return;
           setResults((results) => [...results, ...data.results]);
@@ -35,15 +31,26 @@ function usePaginatedResults(query, type = "multi") {
         ignore = true;
       };
     },
-    [query, pagination.page],
+    [query, page],
   );
 
-  return { results };
+  return results;
 }
 
 export default function SearchResults({ query }) {
   // const {} = useQuery()
-  const { results } = usePaginatedResults(query);
+  const { page, dispatchPagination } = usePagination(1);
+  const results = useSearchResults(query, page);
+
+  const onIntersection = useCallback(
+    function onIntersection() {
+      dispatchPagination(nextPageAction(1));
+    },
+    [dispatchPagination],
+  );
+  const options = useMemo(function cacheOptions() {
+    return { rootMargin: "128px" };
+  }, []);
 
   if (!results.length) return null;
   if (query !== "" && results.length === 0) {
@@ -55,14 +62,8 @@ export default function SearchResults({ query }) {
   }
 
   return (
-    <MediaSectionGrid heading={`Results for ${query}`} mediaData={results} />
-  );
-}
-
-function SearchSuggestion({ data }) {
-  return (
-    <div>
-      <p>{data.title ?? data.name}</p>
-    </div>
+    <ObserveIntersection options={options} onIntersection={onIntersection}>
+      <MediaSectionGrid heading={`Results for ${query}`} mediaData={results} />
+    </ObserveIntersection>
   );
 }

@@ -11,12 +11,12 @@ export default function SearchPage() {
         Search for your favourite movies, tv shows and celebrities from the vast
         collection of TMDB API
       </h1>
-      <SearchFormAndSuggestions />
+      <SearchFormAndResults />
     </main>
   );
 }
 
-function SearchFormAndSuggestions() {
+function SearchFormAndResults() {
   const router = useRouter();
   const query = useDebouncedQuery(router.query.query ?? "");
 
