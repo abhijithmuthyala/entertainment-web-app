@@ -28,7 +28,6 @@ export default function ObserveIntersection({
         ref={ref}
         className={`absolute bottom-0 h-8 w-full ${className}`}
       ></div>
-      ;
     </div>
   );
 }
