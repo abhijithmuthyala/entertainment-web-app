@@ -7,18 +7,8 @@ import { useBookmarksContext } from "@/context/bookmarks";
 
 export default function BookmarksPage() {
   const { bookmarks } = useBookmarksContext();
-  const bookmarkedMovies = [];
-  const bookmarkedSeries = [];
 
-  bookmarks.forEach((bookmark) => {
-    if (bookmark.mediaType === "movie") {
-      bookmarkedMovies.push(bookmark);
-    } else if (bookmark.mediaType === "tv") {
-      bookmarkedSeries.push(bookmark);
-    }
-  });
-
-  if (bookmarkedMovies.length === 0 && bookmarkedSeries.length === 0) {
+  if (bookmarks.length === 0) {
     return <FeedbackMessage message="No bookmarks found." />;
   }
 
@@ -33,18 +23,7 @@ export default function BookmarksPage() {
       </Head>
       <main>
         <h1 className="sr-only">Your bookmarks</h1>
-        {bookmarkedMovies.length > 0 && (
-          <MediaSectionGrid
-            heading="bookmarked movies"
-            mediaData={bookmarkedMovies}
-          />
-        )}
-        {bookmarkedSeries.length > 0 && (
-          <MediaSectionGrid
-            heading="bookmarked series"
-            mediaData={bookmarkedSeries}
-          />
-        )}
+        <MediaSectionGrid heading="bookmarks" mediaData={bookmarks} />
       </main>
     </>
   );
