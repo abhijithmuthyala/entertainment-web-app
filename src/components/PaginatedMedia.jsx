@@ -7,7 +7,7 @@ import useScrollToElement from "@/hooks/useScrollToElement";
 import { fetchData } from "@/utils";
 import { useMemo, useRef, useState } from "react";
 import MediaSectionGrid from "./media/MediaSectionGrid";
-import PaginationButtons from "./pagination-buttons";
+import PaginationButtons, { PaginationButton } from "./pagination-buttons";
 
 export default function PaginatedMedia({ initMovies, totalPages, type }) {
   const { page, dispatchPagination } = usePagination(1);
@@ -42,11 +42,19 @@ export default function PaginatedMedia({ initMovies, totalPages, type }) {
         mediaData={movies}
       />
       <PaginationButtons
-        page={page}
-        totalPages={totalPages}
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-      />
+        previousButton={
+          <PaginationButton disabled={page <= 1} onClick={handlePrevious}>
+            Previous
+          </PaginationButton>
+        }
+        nextButton={
+          <PaginationButton disabled={page >= totalPages} onClick={handleNext}>
+            Next
+          </PaginationButton>
+        }
+      >
+        Page {page} of {totalPages}
+      </PaginationButtons>
     </div>
   );
 }
