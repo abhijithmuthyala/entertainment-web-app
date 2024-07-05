@@ -1,8 +1,7 @@
 import Head from "next/head";
 
-import MediaSectionGrid from "@/components/media/MediaSectionGrid";
-
-import { API } from "@/constants";
+import PaginatedMedia from "@/components/PaginatedMedia";
+import { API, MAX_PAGINATION_PAGES } from "@/constants";
 import { insertMediaTypeField } from "@/helpers";
 import { fetchData } from "@/utils";
 
@@ -20,7 +19,11 @@ export default function MoviesPage({ moviesData }) {
         <h1 className="sr-only">
           Explore a wide collection of movies across genres
         </h1>
-        <MediaSectionGrid heading="movies" mediaData={moviesData} />
+        <PaginatedMedia
+          type="movies"
+          initMovies={moviesData.results}
+          totalPages={Math.min(moviesData.total_pages, MAX_PAGINATION_PAGES)}
+        />
       </main>
     </>
   );
@@ -28,14 +31,13 @@ export default function MoviesPage({ moviesData }) {
 
 export async function getStaticProps() {
   try {
-    const movies = await fetchData(API.movies);
-    insertMediaTypeField(movies.results, "movie");
-
+    const moviesData = await fetchData(API.movies(1));
+    insertMediaTypeField(moviesData.results, "movie");
     return {
       props: {
-        moviesData: movies.results,
+        moviesData,
       },
-      revalidate: 60 * 60 * 24,
+      revalidate: 24 * 60 * 60,
     };
   } catch (error) {
     console.error(error.message);

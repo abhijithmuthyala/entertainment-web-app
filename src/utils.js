@@ -5,6 +5,7 @@ export function toggleKey(set, key) {
 }
 
 export function titleCase(sentence) {
+  if (!sentence) return sentence;
   return sentence
     .split(" ")
     .map((word) => word[0].toUpperCase() + word.slice(1))

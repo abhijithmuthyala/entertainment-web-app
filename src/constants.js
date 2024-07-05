@@ -17,8 +17,12 @@ export const API = {
     movies: `${tmdbBaseUrl}/movie/popular?${keyQueryParam}&language=en-US&page=1&append_to_response=images`,
     tv: `${tmdbBaseUrl}/tv/popular?${keyQueryParam}&language=en-US&page=1&append_to_response=images`,
   },
-  movies: `${tmdbBaseUrl}/discover/movie?${keyQueryParam}&language=en-US&page=1&append_to_response=images`,
-  series: `${tmdbBaseUrl}/discover/tv?${keyQueryParam}&language=en-US&page=1&append_to_response=images`,
+  movies(page = 1) {
+    return `${tmdbBaseUrl}/discover/movie?${keyQueryParam}&language=en-US&page=${page}&append_to_response=images`;
+  },
+  tv(page = 1) {
+    return `${tmdbBaseUrl}/discover/tv?${keyQueryParam}&language=en-US&page=${page}&append_to_response=images`;
+  },
 };
 
 export const HORIZONTAL_SCROLL_UNITS = 10;
