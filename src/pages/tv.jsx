@@ -1,12 +1,11 @@
 import Head from "next/head";
 
-import MediaSectionGrid from "@/components/media/MediaSectionGrid";
-
-import { API } from "@/constants";
+import PaginatedMedia from "@/components/PaginatedMedia";
+import { API, MAX_PAGINATION_PAGES } from "@/constants";
 import { insertMediaTypeField } from "@/helpers";
 import { fetchData } from "@/utils";
 
-export default function SeriesPage({ seriesData }) {
+export default function SeriesPage({ moviesData }) {
   return (
     <>
       <Head>
@@ -20,7 +19,12 @@ export default function SeriesPage({ seriesData }) {
         <h1 className="sr-only">
           Explore a wide collection of tv-series across genres
         </h1>
-        <MediaSectionGrid heading="TV series" mediaData={seriesData} />
+        <PaginatedMedia
+          type="tv"
+          initMovies={moviesData.results}
+          totalPages={Math.min(moviesData.total_pages, MAX_PAGINATION_PAGES)}
+        />
+        {/* <MediaSectionGrid heading="TV series" mediaData={seriesData} /> */}
       </main>
     </>
   );
@@ -28,16 +32,18 @@ export default function SeriesPage({ seriesData }) {
 
 export async function getStaticProps() {
   try {
-    const series = await fetchData(API.series(1));
-    insertMediaTypeField(series.results, "tv");
-
+    const moviesData = await fetchData(API.tv(1));
+    insertMediaTypeField(moviesData.results, "tv");
     return {
       props: {
-        seriesData: series.results,
+        moviesData,
       },
-      revalidate: 60 * 60 * 24,
+      revalidate: 24 * 60 * 60,
     };
   } catch (error) {
     console.error(error.message);
+    return {
+      notFound: true,
+    };
   }
 }

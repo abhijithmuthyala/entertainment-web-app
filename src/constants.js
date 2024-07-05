@@ -20,7 +20,7 @@ export const API = {
   movies(page = 1) {
     return `${tmdbBaseUrl}/discover/movie?${keyQueryParam}&language=en-US&page=${page}&append_to_response=images`;
   },
-  series(page = 1) {
+  tv(page = 1) {
     return `${tmdbBaseUrl}/discover/tv?${keyQueryParam}&language=en-US&page=${page}&append_to_response=images`;
   },
 };

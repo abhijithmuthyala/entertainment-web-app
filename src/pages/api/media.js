@@ -3,8 +3,8 @@ import { fetchData } from "@/utils";
 
 export default async function handler(req, res) {
   try {
-    const { page } = req.query;
-    const url = API.movies(page);
+    const { page, media_type } = req.query;
+    const url = API[media_type](page);
     const data = await fetchData(url, {});
     res.status(200).json(data.results);
   } catch (error) {
