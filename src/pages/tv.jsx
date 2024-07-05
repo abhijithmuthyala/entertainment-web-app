@@ -28,7 +28,7 @@ export default function SeriesPage({ seriesData }) {
 
 export async function getStaticProps() {
   try {
-    const series = await fetchData(API.series);
+    const series = await fetchData(API.series(1));
     insertMediaTypeField(series.results, "tv");
 
     return {
