@@ -1,5 +1,6 @@
 import SearchForm from "@/components/SearchForm";
 import SearchResults from "@/components/SearchResults";
+import { DEBOUNCE_THRESHOLD } from "@/constants";
 import useDebouncedQuery from "@/hooks/useDebounce";
 import { useRouter } from "next/router";
 import { memo } from "react";
@@ -18,13 +19,19 @@ export default function SearchPage() {
 
 function SearchFormAndResults() {
   const router = useRouter();
-  const query = useDebouncedQuery(router.query.query ?? "");
+  const query = useDebouncedQuery(
+    router.query.query ?? "",
+    DEBOUNCE_THRESHOLD,
+    pushQueryToUrl,
+  );
+
+  function pushQueryToUrl(query) {
+    const url = encodeURI(router.pathname + `?query=${query}`);
+    router.replace(url, undefined, { shallow: true });
+  }
 
   function handleChange(event) {
     const inputQuery = event.target.value;
-    const url = encodeURI(router.pathname + `?query=${inputQuery}`);
-
-    router.replace(url, undefined, { shallow: true });
     query.onChange(inputQuery);
   }
 

@@ -25,7 +25,7 @@ export default function SearchResults({ query }) {
   const fetcher = useCallback(
     async function fetcher() {
       try {
-        return await fetchSearchResults(query, page);
+        return await fetchSearchResults(query.trim(), page);
       } catch (error) {
         console.error(error);
         throw error;
