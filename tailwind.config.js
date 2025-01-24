@@ -3,60 +3,75 @@ import { HORIZONTAL_SCROLL_UNITS } from "./src/constants";
 const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
-    fontFamily: {
-      outfit: "var(--ff-outfit)",
-    },
-    fontWeight: {
-      normal: 300,
-      bold: 500,
-    },
-    fontSize: {
-      xs: "var(--fs-xs)",
-      sm: "var(--fs-sm)",
-      base: "var(--fs-base)",
-      md: "var(--fs-md)",
-      lg: "var(--fs-lg)",
-      xl: "var(--fs-xl)",
-      "2xl": "var(--fs-2xl)",
-    },
-    colors: {
-      highlight: "var(--highlight)",
-      primary: "var(--primary)",
-      background: {
-        intense: "var(--background-intense)",
-        muted: "var(--background-muted)",
-      },
-      red: {
-        900: "var(--red-900)",
-      },
-      blue: {
-        300: "var(--blue-300)",
-        700: "var(--blue-700)",
-        900: "var(--blue-900)",
-      },
-      gray: {
-        100: "var(--gray-100)",
-      },
-    },
-    opacity: {
-      50: "0.5",
-      75: "0.75",
-      100: "1",
-    },
-    letterSpacing: {
-      normal: "normal",
-      tight: "var(--ls-sm)", // -0.312px
-      tighter: "var(--ls-xs)", // -0.5px
-    },
-    borderRadius: {
-      xs: "0.125rem", // 2px
-      sm: "0.25rem", // 4px
-      md: "0.375rem", // 6px
-      lg: "0.5rem", // 8px
-      "3xl": "1.5rem", // 20px
-      full: "50%",
-    },
     extend: {
+      keyframes: {
+        "scale-in": { "0%": { opacity: 0.25, transform: "scale(0.9)" } },
+        "slide-up": {
+          "0%": {
+            transform: "translateY(1.25rem)",
+            opacity: 0.25,
+            left: 0,
+            bottom: 0,
+          },
+        },
+      },
+      animation: {
+        "scale-in": "scale-in 600ms ease-in-out",
+        "slide-up": "slide-up 400ms ease-in-out",
+      },
+      fontFamily: {
+        outfit: "var(--ff-outfit)",
+      },
+      fontWeight: {
+        normal: 300,
+        bold: 500,
+      },
+      fontSize: {
+        xs: "var(--fs-xs)",
+        sm: "var(--fs-sm)",
+        base: "var(--fs-base)",
+        md: "var(--fs-md)",
+        lg: "var(--fs-lg)",
+        xl: "var(--fs-xl)",
+        "2xl": "var(--fs-2xl)",
+      },
+      colors: {
+        highlight: "var(--highlight)",
+        primary: "var(--primary)",
+        background: {
+          intense: "var(--background-intense)",
+          muted: "var(--background-muted)",
+        },
+        red: {
+          900: "var(--red-900)",
+        },
+        blue: {
+          300: "var(--blue-300)",
+          700: "var(--blue-700)",
+          900: "var(--blue-900)",
+        },
+        gray: {
+          100: "var(--gray-100)",
+        },
+      },
+      opacity: {
+        50: "0.5",
+        75: "0.75",
+        100: "1",
+      },
+      letterSpacing: {
+        normal: "normal",
+        tight: "var(--ls-sm)", // -0.312px
+        tighter: "var(--ls-xs)", // -0.5px
+      },
+      borderRadius: {
+        xs: "0.125rem", // 2px
+        sm: "0.25rem", // 4px
+        md: "0.375rem", // 6px
+        lg: "0.5rem", // 8px
+        "3xl": "1.5rem", // 20px
+        full: "50%",
+      },
       backgroundImage: {
         avatar: "url('/image-avatar.png')",
         "bookmark-empty": "url('/icon-bookmark-empty.svg')",

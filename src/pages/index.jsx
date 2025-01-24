@@ -53,10 +53,17 @@ export default function Home({
 
 export async function getServerSideProps(ctx) {
   try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.KEY}`,
+      },
+    };
     const [trending, popularMovies, popularSeries] = await Promise.all([
-      fetchData(API.trending),
-      fetchData(API.popular.movies),
-      fetchData(API.popular.tv),
+      fetchData(API.trending, options),
+      fetchData(API.popular.movies, options),
+      fetchData(API.popular.tv, options),
     ]);
     if (
       trending.success === false ||
