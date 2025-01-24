@@ -25,10 +25,11 @@ export async function getServerSideProps(ctx) {
     },
   };
   try {
-    const details = await fetchData(API.details("movie", id), options);
-    const images = await fetchData(API.images("movie", id), options);
-    const credits = await fetchData(API.credits("movie", id), options);
-
+    const [details, images, credits] = await Promise.all([
+      fetchData(API.details("movie", id), options),
+      fetchData(API.images("movie", id), options),
+      fetchData(API.credits("movie", id), options),
+    ]);
     delete images.logos;
 
     return {
