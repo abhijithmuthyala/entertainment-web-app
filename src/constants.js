@@ -1,16 +1,22 @@
-const tmdbBaseUrl = "https://api.themoviedb.org/3";
-const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/w500";
+export const tmdbBaseUrl = "https://api.themoviedb.org/3";
+export const tmdbImageBaseUrl = "https://image.tmdb.org/t/p";
 
 export const API = {
   search(type = "multi", query, page = 1) {
     return `${tmdbBaseUrl}/search/${type}?query=${query}&page=${page}`;
   },
-  details(id) {
-    return `${tmdbBaseUrl}/movie/${id}`;
+  details(type, id) {
+    return `${tmdbBaseUrl}/${type}/${id}`;
+  },
+  credits(type, id) {
+    return `${tmdbBaseUrl}/${type}/${id}/credits`;
   },
   trending: `${tmdbBaseUrl}/trending/all/day?language=en-US&append_to_response=images`,
-  image(path) {
-    return `${tmdbImageBaseUrl}${path}`;
+  image(path, width = "w500") {
+    return `${tmdbImageBaseUrl}/${width}/${path}`;
+  },
+  images(type, id) {
+    return `${tmdbBaseUrl}/${type}/${id}/images`;
   },
   popular: {
     movies: `${tmdbBaseUrl}/movie/popular?language=en-US&page=1&append_to_response=images`,

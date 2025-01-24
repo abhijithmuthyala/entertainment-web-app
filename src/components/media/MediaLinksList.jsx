@@ -32,7 +32,7 @@ export function CardsGridWrapper({ children }) {
   );
 }
 
-function CardsScrollWrapper({ children }) {
+export function CardsScrollWrapper({ children }) {
   return (
     <ol className="grid grid-cols-scroll-mobile gap-x-4 overflow-x-auto md:grid-cols-scroll-desktop">
       {children}
