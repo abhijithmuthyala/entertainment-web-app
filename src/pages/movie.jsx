@@ -31,7 +31,13 @@ export default function MoviesPage({ moviesData }) {
 
 export async function getStaticProps() {
   try {
-    const moviesData = await fetchData(API.movies(1));
+    const moviesData = await fetchData(API.movies(1), {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.KEY}`,
+      },
+    });
     insertMediaTypeField(moviesData.results, "movie");
     return {
       props: {

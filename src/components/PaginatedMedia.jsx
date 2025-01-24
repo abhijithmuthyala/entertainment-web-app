@@ -1,10 +1,9 @@
-import { insertMediaTypeField } from "@/helpers";
 import usePagination, {
   nextPageAction,
   previousPageAction,
 } from "@/hooks/usePagination";
 import useScrollToElement from "@/hooks/useScrollToElement";
-import { fetchData } from "@/utils";
+import { fetchMedia } from "@/utils";
 import { useMemo, useRef, useState } from "react";
 import MediaSectionGrid from "./media/MediaSectionGrid";
 import PaginationButtons, { PaginationButton } from "./pagination-buttons";
@@ -57,17 +56,4 @@ export default function PaginatedMedia({ initMovies, totalPages, type }) {
       </PaginationButtons>
     </div>
   );
-}
-
-async function fetchMedia(type = "movies", page = 1) {
-  try {
-    const movies = await fetchData(
-      `/api/media?page=${page}&media_type=${type}`,
-    );
-    insertMediaTypeField(movies, "movie");
-    return movies;
-  } catch (error) {
-    console.error(error.message);
-    throw error;
-  }
 }
