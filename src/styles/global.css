@@ -43,6 +43,15 @@
   }
 }
 
+@layer utilities {
+  .clip-hexagon {
+    clip-path: polygon(0 20%, 50% 0, 100% 20%, 100% 80%, 50% 100%, 0 80%);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 li {
   list-style: none;
 }

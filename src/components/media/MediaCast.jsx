@@ -18,15 +18,15 @@ export function MediaCastList({ cast }) {
 export function MediaCast({ data }) {
   return (
     <article className="flex flex-col gap-y-4 overflow-hidden rounded-md pb-4">
-      <h3 className="animate-slide-up text-center leading-tight">
-        {data.original_name}
+      <h3 className="text-balance animate-slide-up text-center leading-tight">
+        {data.name}
       </h3>
       <Image
         src={API.image(data.profile_path)}
         alt=""
         width={500}
         height={750}
-        className="-order-1 rotate-45 animate-scale-in border-2 border-amber-300 object-cover object-center"
+        className="-order-1 rotate-45 animate-scale-in rounded-lg border-2 border-amber-300 object-cover object-center"
       />
     </article>
   );
