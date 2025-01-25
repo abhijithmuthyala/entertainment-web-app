@@ -40,7 +40,7 @@ export default function Header() {
 
 function NavLink({ href, name }) {
   const router = useRouter();
-  const isCurrentPage = router.pathname === href;
+  const isCurrentPage = router.pathname.split("/")[1] === href.slice(1);
 
   return (
     <li

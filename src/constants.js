@@ -2,6 +2,12 @@ export const tmdbBaseUrl = "https://api.themoviedb.org/3";
 export const tmdbImageBaseUrl = "https://image.tmdb.org/t/p";
 
 export const API = {
+  videos(type, id) {
+    return `${tmdbBaseUrl}/${type}/${id}/videos?language=en-US'`;
+  },
+  recommendations(type, id) {
+    return `${tmdbBaseUrl}/${type}/${id}/recommendations?language=en-US&page=1'`;
+  },
   search(type = "multi", query, page = 1) {
     return `${tmdbBaseUrl}/search/${type}?query=${query}&page=${page}`;
   },
