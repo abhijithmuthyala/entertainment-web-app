@@ -26,7 +26,7 @@ export default function MediaLinksList({
 
 export function CardsGridWrapper({ children }) {
   return (
-    <ol className="grid grid-cols-[repeat(auto-fill,minmax(10.25rem,1fr))] justify-around gap-x-4 gap-y-8 md:grid-cols-[repeat(auto-fill,minmax(17.5rem,1fr))] md:gap-10">
+    <ol className="scroll-container-vertical grid grid-cols-[repeat(auto-fill,minmax(10.25rem,1fr))] justify-around gap-x-4 gap-y-8 md:grid-cols-[repeat(auto-fill,minmax(17.5rem,1fr))] md:gap-10">
       {children}
     </ol>
   );
@@ -34,7 +34,7 @@ export function CardsGridWrapper({ children }) {
 
 export function CardsScrollWrapper({ children }) {
   return (
-    <ol className="grid grid-cols-scroll-mobile gap-x-4 overflow-x-auto md:grid-cols-scroll-desktop">
+    <ol className="scroll-container grid grid-cols-scroll-mobile gap-x-4 overflow-x-auto overflow-y-hidden supports-[animation-timeline]:gap-0 md:grid-cols-scroll-desktop">
       {children}
     </ol>
   );
