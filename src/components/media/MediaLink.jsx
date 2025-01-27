@@ -57,7 +57,7 @@ export default function MediaLink({
   }
 
   return (
-    <li className="group relative animate-scale-in overflow-hidden rounded-lg transition-all hover:bg-background-muted">
+    <li className="scroll group relative overflow-hidden rounded-lg transition-all hover:bg-background-muted">
       <Link
         href={`/${data.media_type}/${data.id}`}
         className="flex flex-col-reverse gap-y-2"

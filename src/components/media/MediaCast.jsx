@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function MediaCastList({ cast }) {
   return (
-    <ul className="flex gap-x-6 overflow-x-auto">
+    <ul className="scroll-container flex gap-x-6 overflow-x-auto overflow-y-hidden">
       {cast.map(function renderCast(data) {
         return (
           <li key={data.id} className="grid shrink-0 basis-16 sm:basis-20">

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function Recommedations({ recommendations }) {
   return (
-    <ul className="flex gap-x-6 overflow-x-auto">
+    <ul className="scroll-container flex gap-x-6 overflow-x-auto overflow-y-hidden">
       {recommendations.map(function renderRecommendation(data) {
         return (
           <li
