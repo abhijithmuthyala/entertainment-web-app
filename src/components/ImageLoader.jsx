@@ -1,5 +1,6 @@
 "use client";
 
+import { IMAGE_LOAD_TIMEOUT } from "@/constants";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -15,7 +16,7 @@ export default function ImageLoader(props) {
       setImageState((imageState) => {
         return { loading: false, failed: imageState.loading };
       });
-    }, 2000);
+    }, IMAGE_LOAD_TIMEOUT);
   }, []);
 
   function handleError() {
@@ -51,7 +52,7 @@ export default function ImageLoader(props) {
           imageState.loading ? "animate-pulse" : ""
         } ${
           !imageState.loading && !imageState.failed ? "animate-scale-in" : ""
-        } ${imageState.failed ? "opacity-0" : ""}`}
+        }`}
       />
     </span>
   );
