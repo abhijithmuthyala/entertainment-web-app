@@ -8,16 +8,10 @@ import {
 import { API } from "@/constants";
 import { fetchData } from "@/utils";
 
-export default function MovieDetailsPage({
-  id,
-  details,
-  images,
-  cast,
-  recommendations,
-}) {
+export default function MovieDetailsPage({ details, cast, recommendations }) {
   return (
     <main className="grid gap-y-12">
-      <MediaBanner details={details} images={images} />
+      <MediaBanner details={details} />
       <MediaCastSection>
         <MediaCastList cast={cast} />
       </MediaCastSection>
@@ -38,17 +32,14 @@ export async function getServerSideProps(ctx) {
     },
   };
   try {
-    const [details, images, credits, { results: recommendations }] =
-      await Promise.all([
-        fetchData(API.details("movie", id), options),
-        fetchData(API.images("movie", id), options),
-        fetchData(API.credits("movie", id), options),
-        fetchData(API.recommendations("movie", id), options),
-      ]);
-    delete images.logos;
+    const [details, credits, { results: recommendations }] = await Promise.all([
+      fetchData(API.details("movie", id), options),
+      fetchData(API.credits("movie", id), options),
+      fetchData(API.recommendations("movie", id), options),
+    ]);
 
     return {
-      props: { id, details, images, cast: credits.cast, recommendations },
+      props: { id, details, cast: credits.cast, recommendations },
     };
   } catch (error) {
     console.error(error);

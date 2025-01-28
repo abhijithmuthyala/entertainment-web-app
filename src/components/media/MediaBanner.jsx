@@ -1,13 +1,13 @@
+import ImageLoader from "@/components/ImageLoader";
 import { API } from "@/constants";
-import Image from "next/image";
 
 export default function MediaBanner({ details }) {
   return (
     <div className="relative overflow-hidden rounded-lg">
-      <Image
+      <ImageLoader
         src={`${API.image(details.backdrop_path, "original")}`}
         className="scroll-banner-animation block h-96 rounded-tl-3xl rounded-tr-3xl object-cover object-center brightness-75"
-        alt={details.overview}
+        alt={""}
         width={1920}
         height={1080}
         priority
