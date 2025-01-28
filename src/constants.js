@@ -41,3 +41,4 @@ export const DEBOUNCE_THRESHOLD = 400;
 export const MAX_PAGINATION_PAGES = 10;
 export const PREVIEW_UNITS = 20;
 export const EAGER_LOAD_UNITS = 4;
+export const IMAGE_LOAD_TIMEOUT = 10000;

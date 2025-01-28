@@ -1,12 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
-
-import { useState } from "react";
 
 import { API } from "@/constants";
 import { useBookmarksContext } from "@/context/bookmarks";
 import { formatData } from "@/helpers";
 import { titleCase } from "@/utils";
+import ImageLoader from "../ImageLoader";
 
 const mediaIconNames = {
   movie: "movies",
@@ -29,8 +27,6 @@ export default function MediaLink({
   shouldLoadEagerly,
   overlayInfo = false,
 }) {
-  const [showSkeleton, setShowSkeleton] = useState(true);
-
   const formattedData = formatData(data, requiredFields);
   const releaseYear =
     new Date(
@@ -52,12 +48,8 @@ export default function MediaLink({
     toggleBookmark(formattedData);
   }
 
-  function removeSkeleton() {
-    setShowSkeleton(false);
-  }
-
   return (
-    <li className="scroll group relative overflow-hidden rounded-lg transition-all hover:bg-background-muted">
+    <li className="group relative animate-scale-in overflow-hidden rounded-lg transition-all hover:bg-background-muted">
       <Link
         href={`/${data.media_type}/${data.id}`}
         className="flex flex-col-reverse gap-y-2"
@@ -71,7 +63,7 @@ export default function MediaLink({
           <div className="flex items-center gap-4 text-sm md:text-base">
             {releaseYear && <p className="">{releaseYear}</p>}
             <p className="flex items-center gap-1 align-bottom">
-              <Image
+              <ImageLoader
                 src={`/icon-nav-${mediaIconNames[formattedData.mediaType]}.svg`}
                 alt=""
                 width={12}
@@ -86,17 +78,16 @@ export default function MediaLink({
           className={`aspect-media-mobile w-full overflow-hidden rounded-lg md:aspect-media-desktop ${
             overlayInfo &&
             "aspect-media-overlay-mobile md:aspect-media-overlay-desktop"
-          } ${showSkeleton && "skeleton"}`}
+          }`}
         >
-          <Image
+          <ImageLoader
             src={API.image(formattedData.backdropPath)}
             alt=""
             width={470}
             height={230}
             priority={priority}
             loading={shouldLoadEagerly ? "eager" : undefined}
-            onLoad={removeSkeleton}
-            className={`h-full object-cover brightness-75 transition-all duration-200 group-hover:scale-110  `}
+            className={`h-full object-cover brightness-75 transition-all duration-300 group-hover:scale-110  `}
           />
         </div>
       </Link>

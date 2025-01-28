@@ -4,17 +4,6 @@ const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
-      keyframes: {
-        "scale-in": { "0%": { opacity: 0.25, transform: "scale(0.9)" } },
-        "slide-up": {
-          "0%": {
-            transform: "translateY(1.25rem)",
-            opacity: 0.25,
-            left: 0,
-            bottom: 0,
-          },
-        },
-      },
       animation: {
         "scale-in": "scale-in 600ms ease-in-out",
         "slide-up": "slide-up 400ms ease-in-out",
