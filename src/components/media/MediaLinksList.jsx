@@ -16,7 +16,7 @@ export default function MediaLinksList({
           key={mediaData.id}
           data={mediaData}
           overlayInfo={overlayInfo}
-          priority={index === 0}
+          priority={index === 0 ? "high" : "auto"}
           shouldLoadEagerly={index < EAGER_LOAD_UNITS}
         />
       ))}

@@ -1,6 +1,5 @@
 "use client";
 
-import { IMAGE_LOAD_TIMEOUT } from "@/constants";
 import { useEffect, useRef, useState } from "react";
 
 export default function ImageLoader(props) {
@@ -11,11 +10,15 @@ export default function ImageLoader(props) {
   const timerRef = useRef(null);
 
   useEffect(function setLoadingTimeout() {
-    setTimeout(function () {
+    timerRef.current = setTimeout(function () {
       setImageState((imageState) => {
         return { loading: false, failed: imageState.loading };
       });
-    }, IMAGE_LOAD_TIMEOUT);
+    }, 0);
+
+    return function clearLoadingTimeout() {
+      timerRef.current = null;
+    };
   }, []);
 
   function handleError() {
@@ -24,6 +27,7 @@ export default function ImageLoader(props) {
   }
 
   function handleLoad() {
+    console.log("load");
     clearTimeout(timerRef.current);
     setImageState((imageState) => {
       return { ...imageState, loading: false };
@@ -34,7 +38,7 @@ export default function ImageLoader(props) {
     <span
       className={`relative block max-h-max ${
         imageState.failed
-          ? `bg-gradient-to-b from-[#000c33] to-[#5e688c] shadow-inner brightness-50`
+          ? `bg-gradient-to-b from-[#000c33] to-[#5e688c] shadow-inner`
           : ""
       }`}
     >
@@ -44,7 +48,7 @@ export default function ImageLoader(props) {
         src={props.src}
         width={props.width}
         height={props.height}
-        priority={props.priority}
+        fetchpriority={props.priority}
         onLoad={handleLoad}
         onError={handleError}
         className={`${props.className} ${

@@ -32,6 +32,7 @@ export function Recommendation({ data }) {
             alt=""
             width={256}
             height={384}
+            priority="low"
             className="w-full object-cover object-center"
           />
         </div>
