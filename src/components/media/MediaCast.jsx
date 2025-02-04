@@ -27,6 +27,7 @@ export function MediaCast({ data }) {
           alt=""
           width={500}
           height={750}
+          priority="low"
           className="object-cover object-center"
         />
       </div>

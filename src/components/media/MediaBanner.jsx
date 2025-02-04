@@ -10,7 +10,7 @@ export default function MediaBanner({ details }) {
         alt={""}
         width={1920}
         height={1080}
-        priority
+        priority="high"
       />
       <div className="absolute bottom-0 w-full animate-slide-up flex-col gap-4 bg-gradient-to-t from-blue-900 via-black to-transparent p-4 sm:flex">
         <div className="flex items-center justify-between sm:flex-col">

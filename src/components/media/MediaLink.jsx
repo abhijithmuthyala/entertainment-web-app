@@ -68,6 +68,7 @@ export default function MediaLink({
                 alt=""
                 width={12}
                 height={12}
+                priority="low"
                 className="inline-block aspect-square w-3 object-cover object-center align-middle invert"
               />
               {titleCase(formattedData.mediaType)}
