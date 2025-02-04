@@ -1,7 +1,6 @@
 "use client";
 
 import { IMAGE_LOAD_TIMEOUT } from "@/constants";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 export default function ImageLoader(props) {
@@ -39,8 +38,8 @@ export default function ImageLoader(props) {
           : ""
       }`}
     >
-      <Image
-        {...props}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         alt={props.alt}
         src={props.src}
         width={props.width}
